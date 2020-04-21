@@ -14,22 +14,30 @@ const knex = require('knex')({
   }
 })
 
-knex.schema.createTable('users', table => {
-  table.increments('user_id')
-  table.string('user_name')
-  table.string('email')
-  table.string('password')
-  table.string('household_id')
-}).then()
+knex.schema.hasTable('users').then( exists => {
+  if (!exists) {
+    knex.schema.createTable('users', table => {
+      table.increments('user_id')
+      table.string('user_name')
+      table.string('email')
+      table.string('password')
+      table.string('household_id')
+    }).then()
+  }
+})
 
-knex.schema.createTable('tasks', table => {
-  table.increments('task_id')
-  table.string('household_id_fk').references('household_id').inTable('users').notNull().onDelete('cascade')
-  table.string('name')
-  table.string('assigned_to')
-  table.integer('date')
-  table.integer('is_done')
-}).then()
+knex.schema.hasTable('tasks').then( exists => {
+  if (!exists) {
+    knex.schema.createTable('tasks', table => {
+      table.increments('task_id')
+      table.string('household_id_fk').references('household_id').inTable('users').notNull().onDelete('cascade')
+      table.string('name')
+      table.string('assigned_to')
+      table.integer('date')
+      table.integer('is_done')
+    }).then()
+  }
+})
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -41,5 +49,5 @@ app.use(userRoutes)
 // })
 
 server.listen(3000, () => {
-  console.log('listening on *:8080');
+  console.log('listening on *:3000');
 })
