@@ -141,10 +141,11 @@ router.post('/signin',
       })
     }
 
-    const user = await knex('users').where('email', req.body.email)
+    const userArrayFromDatabase = await knex('users').where('email', req.body.email)
+    const user = userArrayFromDatabase[0]
 
     if (user) {
-      bcrypt.compare(req.body.password, user[0].password, (error, response) => {
+      bcrypt.compare(req.body.password, user.password, (error, response) => {
         if (error) {
           return res.json({
             code: 0,
@@ -153,13 +154,13 @@ router.post('/signin',
         if (response === true) {
           res.json({
             code: 1,
-            response: `${user[0].user_name} is authorized.`,
+            response: `${user.user_name} is authorized.`,
             user_data: user
           })
         } else {
           res.json({
             code: 0,
-            error: [{msg: `${user[0].user_name} is not authorized.`}]
+            error: [{msg: `${user.user_name} is not authorized.`}]
           })
         }
       })
