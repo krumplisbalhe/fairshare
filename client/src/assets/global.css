@@ -1,0 +1,74 @@
+:root {
+  --backgroundColor: #EBECF0;
+  --shadowColor: #BABECC;
+  --white: #FFFF;
+  --actionTextColor: #61677C;
+}
+
+*{
+  -webkit-tap-highlight-color: transparent;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--backgroundColor);
+  margin: 0px;
+}
+
+#app{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+input, textarea, pre, select, button {
+  font-family: 'Roboto', sans-serif;
+}
+
+button, input {
+  border: 0;
+  outline: 0;
+  border-radius: 25px;
+  background-color: var(--backgroundColor);
+  text-shadow: 1px 1px 0 var(--white);
+}
+
+button {
+  color: var(--actionTextColor);
+  font-weight: bold;
+  box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px;
+}
+
+button:hover {
+  box-shadow: -2px -2px 5px var(--white), 2px 2px 5px var(--shadowColor);
+}
+
+button:active {
+  box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
+}
+
+input {
+  box-shadow: inset 2px 2px 5px var(--shadowColor), inset -5px -5px 10px var(--white);
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  margin-bottom: 30px;
+  padding: 16px;
+}
+
+input:focus {
+  box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
+}
+
+/* #icon {
+  shape-rendering: crispEdges;
+  fill: url(#MyGradient);
+} */

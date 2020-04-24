@@ -1,21 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Toast v-if="$root.toast" />
+    <Entering></Entering>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Entering from './pages/Entering'
+import Toast from './components/Toast'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Entering,
+    Toast
   }
 }
 </script>
 
 <style>
-
+@import './assets/global.css';
 </style>
