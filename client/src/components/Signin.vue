@@ -16,7 +16,6 @@ export default {
       email: '',
       password: '',
       feedbackMessage:'',
-      // feedbackImage: 0
     }
   },
   methods: {
@@ -35,15 +34,14 @@ export default {
     .then(res => {
       console.log(res)
         if(res.code == 1){
-            // this.$root.user = json.data
+            this.$root.user = res.user_data
             // this.$router.push('/dashboard')
-          console.log('Good stuff')
           }
         if(res.code == 0){
           this.$root.toast = {
-            message: res.error[0].msg
+            message: res.error[0].msg,
+            icon: "error"
           }
-          // this.feedbackImage = 0
         }
       }).catch(error => {
         console.log(error)

@@ -3,6 +3,8 @@
   --shadowColor: #BABECC;
   --white: #FFFF;
   --actionTextColor: #61677C;
+  --colorPurple: #D1C9DA;
+  --colorOrange: #EBD2CB;
 }
 
 *{
@@ -68,7 +70,14 @@ input:focus {
   box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
 }
 
-/* #icon {
-  shape-rendering: crispEdges;
+.gradientIcon {
   fill: url(#MyGradient);
-} */
+}
+
+.gradientIcon > * {
+  stroke-width: 15;
+}
+
+.icon {
+  fill: var(--actionTextColor);
+}

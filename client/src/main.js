@@ -5,6 +5,7 @@ Vue.config.productionTip = false
 
 new Vue({
   data: {
+    user: '',
     toast: null
   },
   render: h => h(App),

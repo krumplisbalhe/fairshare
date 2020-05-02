@@ -17,13 +17,13 @@ router.post('/signup-create',
   [
     check('user_name')
     .isLength({min: 3}, {max: 20})
-    .withMessage('Username must be between 3 and 20 characters.'),
+    .withMessage('Username must be between 3 and 20 characters'),
     check('email')
       .isEmail()
       .withMessage('Email is invalid.'),
     check('password')
       .isLength({min: 5}, {max: 15})
-      .withMessage('Password must be between 5 and 15 characters.')
+      .withMessage('Password must be between 5 and 15 characters')
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -64,16 +64,16 @@ router.post('/signup-join',
   [
     check('user_name')
     .isLength({min: 3}, {max: 20})
-    .withMessage('Username must be between 3 and 20 characters.'),
+    .withMessage('Username must be between 3 and 20 characters'),
     check('email')
       .isEmail()
       .withMessage('Email is invalid.'),
     check('password')
       .isLength({min: 5}, {max: 15})
-      .withMessage('Password must be between 5 and 15 characters.'),
+      .withMessage('Password must be between 5 and 15 characters'),
     check('household_id')
       .isLength({min: 1}, {max: 15})
-      .withMessage('Household ID is missing.')
+      .withMessage('Household ID is missing')
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -126,11 +126,11 @@ router.post('/signin',
     check('email')
       .not()
       .isEmpty()
-      .withMessage('Email is missing.'),
+      .withMessage('Email is missing'),
     check('password')
       .not()
       .isEmpty()
-      .withMessage('Password is missing.')
+      .withMessage('Password is missing')
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -149,7 +149,7 @@ router.post('/signin',
         if (error) {
           return res.json({
             code: 0,
-            error: [{msg: 'Problem with password.'}]})
+            error: [{msg: 'Problem with password'}]})
         }
         if (response === true) {
           res.json({
@@ -160,23 +160,16 @@ router.post('/signin',
         } else {
           res.json({
             code: 0,
-            error: [{msg: `${user.user_name} is not authorized.`}]
+            error: [{msg: `${user.user_name} is not authorized`}]
           })
         }
       })
     } else {
       res.json({
         code: 0,
-        error: [{msg: 'User does\'nt exist.'}]
+        error: [{msg: 'User does\'nt exist'}]
       })
     }
   }
 )
-
-
-
-
-
-
-
 module.exports = router

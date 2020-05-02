@@ -19,7 +19,7 @@
       <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(148, 121, 170, 0.3)" />
       <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(239, 150, 116, 0.3)" />
       <use xlink:href="#gentle-wave" x="48" y="4" fill="rgba(235, 236, 240, 0.3)" />
-      <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+      <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255, 255, 255, 0.3)" />
       <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(235, 236, 240, 0.3)" />
       </g>
       </svg>
@@ -53,7 +53,7 @@ export default {
 }
 
 .enteringNav.signup, .enteringNav.signin{
-  height: 50vh;
+  height: 45vh;
 }
 
 .enteringNav .buttonContainer {

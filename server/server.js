@@ -1,6 +1,7 @@
 const express = require('express')
 const Cors = require('cors')
 const userRoutes = require('./routes/userRoutes')
+const taskRoutes = require('./routes/taskRoutes')
 const app = express()
 const server = require('http').Server(app)
 
@@ -30,11 +31,16 @@ knex.schema.hasTable('tasks').then( exists => {
   if (!exists) {
     knex.schema.createTable('tasks', table => {
       table.increments('task_id')
+      table.string('task_name')
       table.string('household_id_fk').references('household_id').inTable('users').notNull().onDelete('cascade')
-      table.string('name')
-      table.string('assigned_to')
-      table.integer('date')
+      table.integer('deadline')
+      table.integer('point')
+      table.integer('category')
       table.integer('is_done')
+      table.string('assigned_to')
+      table.string('description')
+      table.string('time_spent')
+      table.string('frequency')
     }).then()
   }
 })
@@ -43,6 +49,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(express.static('public'))
 app.use(userRoutes)
+app.use(taskRoutes)
 
 // app.get('*', (req, res)=>{
 //   res.sendFile(path.join(__dirname, 'public', 'index.html'))

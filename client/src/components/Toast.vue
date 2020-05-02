@@ -1,16 +1,20 @@
 <template>
   <transition name="slideDown" appear>
     <div v-if="$root.toast" class="toast">
-      <div></div>
+      <Error v-if="$root.toast.icon === 'error'" />
+      <div class="verticalDivider"></div>
       <p>{{ $root.toast.message }}</p>
     </div>
   </transition>
 </template>
 
 <script>
+import Error from '../assets/icons/error.svg'
+
 export default {
   name: 'Toast',
   components: {
+    Error,
   },
   methods:{
   },
@@ -19,7 +23,7 @@ export default {
     }
   },
   created() {
-    setTimeout(() => this.$root.toast = null, 4000)
+    setTimeout(() => this.$root.toast = null, 2500)
   }
 }
 </script>
@@ -28,14 +32,27 @@ export default {
 .toast{
   z-index: 2;
   position: absolute;
-  width: 200px;
-  height: 50px;
-  border-radius: 15px;
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--shadowColor), -0.2rem -0.2rem 0.5rem var(--white);
+  width: 100%;
+  height: 55px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: var(--backgroundColor)
+  background-color: var(--colorOrange);
+  top: 15px;
+  box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
+}
+
+.toast svg{
+  padding-left: 20px;
+  height: 30px;
+}
+
+.toast .verticalDivider {
+  width: 20px;
+  margin-left: 20px;
+  height: 70%;
+  border-left: 1px solid var(--actionTextColor);
+  box-shadow: inset 2px 0px 2px -2px var(--shadowColor), inset 2px 0px 2px -2px var(--shadowColor);
+
 }
 
 .toast p{
