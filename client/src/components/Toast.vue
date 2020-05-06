@@ -32,7 +32,7 @@ export default {
 .toast{
   z-index: 2;
   position: absolute;
-  width: 100%;
+  width: var(--appMaxWidth);
   height: 55px;
   display: flex;
   align-items: center;

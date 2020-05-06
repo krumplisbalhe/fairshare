@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const shortid = require('shortid')
+const jwt = require("jsonwebtoken")
 const {check, validationResult} = require('express-validator')
 
 const saltRounds = 10
@@ -152,10 +153,15 @@ router.post('/signin',
             error: [{msg: 'Problem with password'}]})
         }
         if (response === true) {
+          const token = jwt.sign({
+            sub: user.user_id,
+            username: user.user_name
+          }, "mykey", {expiresIn: "3 hours"})
           res.json({
             code: 1,
             response: `${user.user_name} is authorized.`,
-            user_data: user
+            user_data: user,
+            access_token: token
           })
         } else {
           res.json({

@@ -35,6 +35,7 @@ export default {
       console.log(res)
         if(res.code == 1){
             this.$root.user = res.user_data
+            this.$root.access_token = res.access_token
             // this.$router.push('/dashboard')
           }
         if(res.code == 0){

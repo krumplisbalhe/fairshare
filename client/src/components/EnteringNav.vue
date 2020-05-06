@@ -1,14 +1,14 @@
 <template>
   <div class="enteringNav">
     <div class="buttonContainer">
-      <button @click="$emit('signup')">
+      <button @click="onButtonClick('signup')">
         Sign up
       </button>
-      <button @click="$emit('signin')">
+      <button @click="onButtonClick('signin')">
         Sign in
       </button>
     </div>
-<!--Waves Container-->
+  <div :class="masked ? 'mask' : ''">
     <div class="waveContainer">
       <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
       viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -24,12 +24,17 @@
       </g>
       </svg>
     </div>
-<!--Waves end-->
-  <div class="textContainer">
-    <svg xmlns="http://www.w3.org/2000/svg">
-      <clipPath id="path">
-        <text alignment-baseline="hanging" x="180" y="20">We like</text>
-        <text alignment-baseline="hanging" x="180" y="90">it equal</text>
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <clipPath id="path" text-anchor="middle">
+        <text x="50%" y="30%">
+          WE
+        </text>
+        <text x="50%" y="42%">
+          LIKE IT
+        </text>
+        <text x="50%" y="54%">
+          EQUAL
+        </text>
       </clipPath>
     </svg>
   </div>
@@ -39,7 +44,18 @@
 <script>
 export default {
   name: 'Nav',
+  data(){
+    return {
+      masked: true
+    }
+  },
   components: {
+  },
+  methods: {
+    onButtonClick(action){
+      this.$emit(action)
+      this.masked = false
+    }
   }
 }
 </script>
@@ -53,7 +69,7 @@ export default {
 }
 
 .enteringNav.signup, .enteringNav.signin{
-  height: 45vh;
+  height: calc(45vh - 10px);
 }
 
 .enteringNav .buttonContainer {
@@ -65,22 +81,25 @@ export default {
 }
 
 .enteringNav .waveContainer {
-  margin-top: 70%;
   transition: all 0.8s linear;
   position: absolute;
-  max-width: 100vw;
-  clip-path: url(#path);
+  max-width: var(--appMaxWidth);
   left: 50%;
   transform: translateX(-50%);
 }
 
-.enteringNav.signup .waveContainer, .enteringNav.signin .waveContainer {
-  margin-top: 25vh;
-  clip-path: none;
+.mask{
+  clip-path: url(#path);
+  height: 100vh;
+  font-size: 11vh;
+}
+text{
+  font-weight: bold;
 }
 
 .enteringNav.signup .waves, .enteringNav.signin .waves {
   height: 15vh;
+  transition: all 0.8s linear;
 }
 
 .enteringNav.signup .parallax > use:nth-child(5), .enteringNav.signin .parallax > use:nth-child(5) {
@@ -89,11 +108,11 @@ export default {
 
 .waves {
   position:relative;
-  max-width: 100vw;
-  height: 25vh;
+  max-width: var(--appMaxWidth);
+  height: 50vh;
+  top: 15vh;
   margin-bottom:-7px; /*Fix for safari gap*/
   min-height:100px;
-  max-height:150px;
 }
 
 .parallax > use {
@@ -126,12 +145,5 @@ export default {
   100% {
     transform: translate3d(85px,0,0);
   }
-}
-
-#path text {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 20vw;
-  text-anchor: middle;
 }
 </style>

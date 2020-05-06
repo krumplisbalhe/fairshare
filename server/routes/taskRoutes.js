@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const expressjwt = require("express-jwt")
 const {check, validationResult} = require('express-validator')
 
 const knex = require('knex')({
@@ -9,10 +10,15 @@ const knex = require('knex')({
   }
 })
 
+const jwtCheck = expressjwt({
+  secret: "mykey"
+})
+
 const tasks = router.route('/tasks')
 
 // CREATE A TASK FOR A HOUSEHOLD
 tasks.post(
+  jwtCheck,
   [
     check('task_name')
       .not()
@@ -68,16 +74,19 @@ tasks.post(
 })
 
 // READ ALL TASKS OF A HOUSEHOLD
-tasks.get(async (req, res) => {
-  const householdTasks = await knex('tasks').where('household_id_fk', req.query.household_id_fk)
-  return res.json({
-    code: 1,
-    response: householdTasks
-  })
+tasks.get(
+  jwtCheck,
+  async (req, res) => {
+    const householdTasks = await knex('tasks').where('household_id_fk', req.query.household_id_fk)
+    return res.json({
+      code: 1,
+      response: householdTasks
+    })
 })
 
 // UPDATE A TASK OF A HOUSEHOLD
 tasks.put(
+  jwtCheck,
   [
     check('task_name')
       .not()
@@ -140,6 +149,7 @@ tasks.put(
 
 // DELETE A TASK OF A HOUSEHOLD
 tasks.delete(
+  jwtCheck,
   [
     check('task_id')
       .not()
