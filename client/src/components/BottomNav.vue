@@ -18,8 +18,8 @@ export default {
 }
 </script>
 
-<style>
-.bottomNav{
+<style lang="scss">
+.bottomNav {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

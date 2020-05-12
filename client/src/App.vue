@@ -21,9 +21,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import './assets/global.css';
-#app{
+#app {
   height: calc(100vh - 20px);
   display: flex;
   flex-direction: column;

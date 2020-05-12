@@ -48,8 +48,8 @@ export default {
 }
 </script>
 
-<style>
-.dashboard{
+<style lang="scss">
+.dashboard {
   height: 100%;
   width: 100%;
   display: flex;
@@ -57,17 +57,17 @@ export default {
   align-items: center;
 }
 
-.header{
+.header {
   height: 20%;
   width: 100%;
 }
 
-.panel{
+.panel {
   height: 70%;
   width: 100%;
 }
 
-.bottomNav{
+.bottomNav {
   height: 10%;
   width: 100%;
 }

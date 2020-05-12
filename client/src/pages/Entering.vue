@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .entering {
   width: 100%;
   height: 100%;
@@ -37,13 +37,13 @@ export default {
   align-items: center;
 }
 
-.hidden{
+.hidden {
   opacity: 0;
   transition: all 1s linear;
   transition-delay: 0.3s;
 }
 
-.swimIn{
+.swimIn {
   opacity: 1;
 }
 </style>

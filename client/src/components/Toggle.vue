@@ -23,19 +23,19 @@ export default {
 }
 </script>
 
-<style>
-.toggleWrapper{
+<style lang="scss">
+.toggleWrapper {
   display: flex;
   align-items: center;
   padding-bottom: 30px;
 }
 
-.toggle{
+.toggle {
   width: 60px;
-}
 
-.toggle input{
+  input {
   display: none;
+  }
 }
 
 label {
@@ -48,27 +48,28 @@ label {
   position: relative;
   cursor: pointer;
   border-radius: 25px;
-}
 
-label::after {
-  content: "";
-  position: absolute;
-  left: .4rem;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--actionTextColor);
-  transition: all 0.4s ease;
-}
+  &::after {
+    content: "";
+    position: absolute;
+    left: .4rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--actionTextColor);
+    transition: all 0.4s ease;
+  }
 
-label::before {
-      content: '';
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(330deg, var(--colorPurple) 0%, var(--colorOrange) 100%);
-      opacity: 0;
-      transition: all 0.4s ease;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(330deg, var(--colorPurple) 0%, var(--colorOrange) 100%);
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+
 }
 
 .toggle input:checked + label::before {
@@ -79,7 +80,7 @@ label::before {
   left: 57%;
 }
 
-.toggleText{
+.toggleText {
   padding-left: 15px;
   text-shadow: 1px 1px 0 var(--white);
   font-size: 15px;

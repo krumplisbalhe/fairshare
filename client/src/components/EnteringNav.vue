@@ -60,27 +60,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .enteringNav {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  &.signup, &.signin {
+    height: calc(45vh - 10px);
+
+    .waves {
+      height: 15vh;
+      transition: all 0.8s linear;
+    }
+
+    .parallax > use:nth-child(5) {
+      fill: rgba(235, 236, 240, 1);
+    }
+  }
+
+  .buttonContainer {
+    align-self: flex-end;
+  }
+
+  button {
+    margin: 10px;
+  }
 }
 
-.enteringNav.signup, .enteringNav.signin{
-  height: calc(45vh - 10px);
-}
-
-.enteringNav .buttonContainer {
-  align-self: flex-end;
-}
-
-.enteringNav button {
-  margin: 10px;
-}
-
-.enteringNav .waveContainer {
+.waveContainer {
   transition: all 0.8s linear;
   position: absolute;
   max-width: var(--appMaxWidth);
@@ -88,22 +97,14 @@ export default {
   transform: translateX(-50%);
 }
 
-.mask{
+.mask {
   clip-path: url(#path);
   height: 100vh;
   font-size: 11vh;
 }
-text{
+
+text {
   font-weight: bold;
-}
-
-.enteringNav.signup .waves, .enteringNav.signin .waves {
-  height: 15vh;
-  transition: all 0.8s linear;
-}
-
-.enteringNav.signup .parallax > use:nth-child(5), .enteringNav.signin .parallax > use:nth-child(5) {
-  fill: rgba(235, 236, 240, 1);
 }
 
 .waves {
@@ -111,33 +112,41 @@ text{
   max-width: var(--appMaxWidth);
   height: 50vh;
   top: 15vh;
-  margin-bottom:-7px; /*Fix for safari gap*/
+  margin-bottom:-7px;
   min-height:100px;
 }
 
-.parallax > use {
-  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+.parallax {
+  > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+  }
+
+  > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+  }
+
+  > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+  }
+
+  > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+  }
+
+  > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+  }
+
+  > use:nth-child(5) {
+    animation-delay: -6s;
+    animation-duration: 10s;
+  }
 }
-.parallax > use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 7s;
-}
-.parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-}
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 13s;
-}
-.parallax > use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
-}
-.parallax > use:nth-child(5) {
-  animation-delay: -6s;
-  animation-duration: 10s;
-}
+
 @keyframes move-forever {
   0% {
     transform: translate3d(-90px,0,0);

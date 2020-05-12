@@ -28,8 +28,8 @@ export default {
 }
 </script>
 
-<style>
-.toast{
+<style lang="scss">
+.toast {
   z-index: 2;
   position: absolute;
   width: var(--appMaxWidth);
@@ -39,25 +39,24 @@ export default {
   background-color: var(--colorOrange);
   top: 15px;
   box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
-}
 
-.toast svg{
-  padding-left: 20px;
-  height: 30px;
-}
+  .verticalDivider {
+    width: 20px;
+    margin-left: 20px;
+    height: 70%;
+    border-left: 1px solid var(--actionTextColor);
+    box-shadow: inset 2px 0px 2px -2px var(--shadowColor), inset 2px 0px 2px -2px var(--shadowColor);
+  }
 
-.toast .verticalDivider {
-  width: 20px;
-  margin-left: 20px;
-  height: 70%;
-  border-left: 1px solid var(--actionTextColor);
-  box-shadow: inset 2px 0px 2px -2px var(--shadowColor), inset 2px 0px 2px -2px var(--shadowColor);
+  p {
+    font-size: 14px;
+    color: var(--actionTextColor);
+  }
 
-}
-
-.toast p{
-  font-size: 14px;
-  color: var(--actionTextColor);
+  svg {
+    padding-left: 20px;
+    height: 30px;
+  }
 }
 
 .slideDown-enter-active, .slideDown-leave-active {
