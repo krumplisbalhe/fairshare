@@ -7,7 +7,8 @@ new Vue({
   data: {
     user: '',
     access_token: '',
-    toast: null
+    toast: null,
+    usersOfHousehold: []
   },
   render: h => h(App),
 }).$mount('#app')

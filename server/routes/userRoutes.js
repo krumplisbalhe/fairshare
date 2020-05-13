@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const expressjwt = require("express-jwt")
 const bcrypt = require('bcrypt')
 const shortid = require('shortid')
 const jwt = require("jsonwebtoken")
@@ -12,6 +13,10 @@ const knex = require('knex')({
   connection: {
     filename: "./db.sqlite"
   }
+})
+
+const jwtCheck = expressjwt({
+  secret: "mykey"
 })
 
 router.post('/signup-create',
@@ -178,4 +183,16 @@ router.post('/signin',
     }
   }
 )
+
+// READ ALL USERS OF A HOUSEHOLD
+router.get('/usersOfHousehold',
+  jwtCheck,
+  async (req, res) => {
+    const usersOfHousehold = await knex('users').where('household_id', req.query.household_id)
+    return res.json({
+      code: 1,
+      response: usersOfHousehold
+    })
+})
+
 module.exports = router

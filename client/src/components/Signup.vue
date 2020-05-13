@@ -63,5 +63,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+.signup {
+  padding: 20px;
+}
 </style>

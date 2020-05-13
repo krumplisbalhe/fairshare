@@ -53,4 +53,7 @@ export default {
 </script>
 
 <style lang="scss">
+.signin {
+  padding: 20px;
+}
 </style>

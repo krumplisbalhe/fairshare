@@ -82,6 +82,8 @@ export default {
 
   .buttonContainer {
     align-self: flex-end;
+    padding-top: 20px;
+    padding-right: 10px;
   }
 
   button {

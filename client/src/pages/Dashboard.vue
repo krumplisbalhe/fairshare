@@ -1,8 +1,10 @@
 <template>
   <div class="dashboard">
-    <div class="header"></div>
+    <div class="date">
+      Date
+    </div>
     <div class="panel">
-      <h1 v-if="activeNav === 'tasks'">task</h1>
+      <Tasks v-if="activeNav === 'tasks'"></Tasks>
       <h1 v-if="activeNav === 'balance'">balance</h1>
     </div>
     <BottomNav @setNav="val => activeNav = val" />
@@ -11,14 +13,17 @@
 
 <script>
 import BottomNav from '../components/BottomNav'
+import Tasks from '../components/Tasks'
 
 export default {
   name: 'Dashboard',
   components: {
     BottomNav,
+    Tasks
   },
   created(){
-		this.getTasks()
+    this.getTasks(),
+    this.getUsersOfHousehold()
   },
   data(){
     return {
@@ -40,6 +45,25 @@ export default {
         console.log(error)
         this.$root.toast = {
             message: 'Problem with authorization.',
+            icon: "error"
+          }
+			})
+    },
+    getUsersOfHousehold(){
+			fetch(`/usersOfHousehold?household_id=${this.$root.user.household_id}`, {
+        method: 'GET',
+        headers:{
+          'Authorization': `Bearer ${this.$root.access_token}`
+        }
+			})
+			.then(res => res.json())
+			.then(res => {
+        console.log(res.response)
+        this.$root.usersOfHousehold = res.response.map(({user_name}) => user_name)
+			}).catch(error => {
+        console.log(error)
+        this.$root.toast = {
+            message: 'Problem with getting data.',
             icon: "error"
           }
 			})
@@ -70,6 +94,10 @@ export default {
 .bottomNav {
   height: 10%;
   width: 100%;
+}
+
+.date {
+  height: 20%;
 }
 
 </style>
