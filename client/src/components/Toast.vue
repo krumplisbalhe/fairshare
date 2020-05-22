@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Error from '../assets/icons/error.svg'
+import Error from '@/assets/icons/error.svg'
 
 export default {
   name: 'Toast',

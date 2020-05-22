@@ -1,29 +1,23 @@
 <template>
   <div class="entering">
-    <EnteringNav @signin="tab='signin'" @signup="tab='signup'" :class="tab"></EnteringNav>
-    <div :class="{hidden: true, swimIn: tab}">
-      <Signin v-if="tab==='signin'"></Signin>
-      <Signup v-if="tab==='signup'"></Signup>
+    <EnteringNav :class="$route.path.substr(1)"></EnteringNav>
+    <div :class="{hidden: true, swimIn: $route.path !== '/'}">
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import EnteringNav from '../components/EnteringNav'
-import Signin from '../components/Signin'
-import Signup from '../components/Signup'
+import EnteringNav from '@/components/EnteringNav'
 
 export default {
   name: 'Entering',
   data(){
     return {
-      tab: ''
     }
   },
   components: {
-    EnteringNav,
-    Signin,
-    Signup
+    EnteringNav
   }
 }
 </script>

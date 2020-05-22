@@ -19,7 +19,7 @@ const jwtCheck = expressjwt({
   secret: "mykey"
 })
 
-router.post('/signup-create',
+router.post('/api/signup-create',
   [
     check('user_name')
     .isLength({min: 3}, {max: 20})
@@ -66,7 +66,7 @@ router.post('/signup-create',
     })
 })
 
-router.post('/signup-join',
+router.post('/api/signup-join',
   [
     check('user_name')
     .isLength({min: 3}, {max: 20})
@@ -127,7 +127,7 @@ router.post('/signup-join',
     })
 })
 
-router.post('/signin',
+router.post('/api/signin',
   [
     check('email')
       .not()
@@ -160,7 +160,7 @@ router.post('/signin',
         if (response === true) {
           const token = jwt.sign({
             sub: user.user_id,
-            username: user.user_name
+            username: user.user_name,
           }, "mykey", {expiresIn: "3 hours"})
           res.json({
             code: 1,
@@ -185,7 +185,7 @@ router.post('/signin',
 )
 
 // READ ALL USERS OF A HOUSEHOLD
-router.get('/usersOfHousehold',
+router.get('/api/usersOfHousehold',
   jwtCheck,
   async (req, res) => {
     const usersOfHousehold = await knex('users').where('household_id', req.query.household_id)

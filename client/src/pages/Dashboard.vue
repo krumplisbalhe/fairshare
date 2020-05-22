@@ -1,5 +1,8 @@
 <template>
   <div class="dashboard">
+    <button @click="signOut()">
+      Sign out
+    </button>
     <div class="date">
       Date
     </div>
@@ -12,8 +15,8 @@
 </template>
 
 <script>
-import BottomNav from '../components/BottomNav'
-import Tasks from '../components/Tasks'
+import BottomNav from '@/components/BottomNav'
+import Tasks from '@/components/Tasks'
 
 export default {
   name: 'Dashboard',
@@ -22,7 +25,7 @@ export default {
     Tasks
   },
   created(){
-    this.getTasks(),
+    this.$root.getTasks(),
     this.getUsersOfHousehold()
   },
   data(){
@@ -31,26 +34,8 @@ export default {
     }
   },
   methods:{
-    getTasks(){
-			fetch(`/tasks?household_id_fk=${this.$root.user.household_id}`, {
-        method: 'GET',
-        headers:{
-          'Authorization': `Bearer ${this.$root.access_token}`
-        }
-			})
-			.then(res => res.json())
-			.then(res => {
-				console.log(res)
-			}).catch(error => {
-        console.log(error)
-        this.$root.toast = {
-            message: 'Problem with authorization.',
-            icon: "error"
-          }
-			})
-    },
     getUsersOfHousehold(){
-			fetch(`/usersOfHousehold?household_id=${this.$root.user.household_id}`, {
+			fetch(`/api/usersOfHousehold?household_id=${this.$root.user.household_id}`, {
         method: 'GET',
         headers:{
           'Authorization': `Bearer ${this.$root.access_token}`
@@ -59,7 +44,7 @@ export default {
 			.then(res => res.json())
 			.then(res => {
         console.log(res.response)
-        this.$root.usersOfHousehold = res.response.map(({user_name}) => user_name)
+        this.$root.usersOfHousehold = res.response
 			}).catch(error => {
         console.log(error)
         this.$root.toast = {
@@ -67,13 +52,20 @@ export default {
             icon: "error"
           }
 			})
-		},
+    },
+    signOut(){
+      localStorage.setItem("user_data", '')
+      localStorage.setItem("access_token", '')
+      this.$router.push('/')
+      location.reload()
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .dashboard {
+  position: relative;
   height: 100%;
   width: 100%;
   display: flex;

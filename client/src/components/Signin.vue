@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     signInUser(){
-    fetch('/signin', {
+    fetch('/api/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -36,7 +36,9 @@ export default {
         if(res.code == 1){
             this.$root.user = res.user_data
             this.$root.access_token = res.access_token
-            // this.$router.push('/dashboard')
+            localStorage.setItem("user_data", JSON.stringify(res.user_data))
+            localStorage.setItem("access_token", res.access_token)
+            this.$router.push('/dashboard')
           }
         if(res.code == 0){
           this.$root.toast = {
@@ -53,7 +55,11 @@ export default {
 </script>
 
 <style lang="scss">
-.signin {
-  padding: 20px;
+
+.swimIn{
+  .signin {
+    padding: 20px;
+  }
 }
+
 </style>

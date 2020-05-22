@@ -14,7 +14,7 @@ const jwtCheck = expressjwt({
   secret: "mykey"
 })
 
-const tasks = router.route('/tasks')
+const tasks = router.route('/api/tasks')
 
 // CREATE A TASK FOR A HOUSEHOLD
 tasks.post(

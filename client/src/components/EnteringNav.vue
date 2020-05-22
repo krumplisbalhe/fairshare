@@ -1,14 +1,18 @@
 <template>
   <div class="enteringNav">
     <div class="buttonContainer">
-      <button @click="onButtonClick('signup')">
-        Sign up
-      </button>
-      <button @click="onButtonClick('signin')">
-        Sign in
-      </button>
+      <router-link to="/signup">
+        <button>
+          Sign up
+        </button>
+      </router-link>
+      <router-link to="/signin">
+        <button>
+          Sign in
+        </button>
+      </router-link>
     </div>
-  <div :class="masked ? 'mask' : ''">
+  <div :class="$route.path === '/' ? 'mask' : ''">
     <div class="waveContainer">
       <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
       viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -46,16 +50,11 @@ export default {
   name: 'Nav',
   data(){
     return {
-      masked: true
     }
   },
   components: {
   },
   methods: {
-    onButtonClick(action){
-      this.$emit(action)
-      this.masked = false
-    }
   }
 }
 </script>
@@ -64,14 +63,16 @@ export default {
 .enteringNav {
   height: 100%;
   width: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 
   &.signup, &.signin {
     height: calc(45vh - 10px);
 
     .waves {
-      height: 15vh;
+      height: 13vh;
       transition: all 0.8s linear;
     }
 
@@ -94,14 +95,14 @@ export default {
 .waveContainer {
   transition: all 0.8s linear;
   position: absolute;
-  max-width: var(--appMaxWidth);
+  width: 100%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .mask {
   clip-path: url(#path);
-  height: 100vh;
+  height: 90vh;
   font-size: 11vh;
 }
 
@@ -111,7 +112,7 @@ text {
 
 .waves {
   position:relative;
-  max-width: var(--appMaxWidth);
+  width: 100%;
   height: 50vh;
   top: 15vh;
   margin-bottom:-7px;

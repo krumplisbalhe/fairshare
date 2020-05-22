@@ -1,11 +1,11 @@
 const express = require('express')
-const Cors = require('cors')
+// const Cors = require('cors')
 const userRoutes = require('./routes/userRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 const app = express()
 const server = require('http').Server(app)
 
-app.use(Cors())
+// app.use(Cors())
 
 const knex = require('knex')({
   client: 'sqlite3',
@@ -37,7 +37,7 @@ knex.schema.hasTable('tasks').then( exists => {
       table.integer('point')
       table.integer('category')
       table.integer('is_done')
-      table.string('assigned_to')
+      table.integer('assigned_to')
       table.string('description')
       table.string('time_spent')
       table.string('frequency')

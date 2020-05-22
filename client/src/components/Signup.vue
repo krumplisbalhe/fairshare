@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Toggle from '../components/Toggle'
+import Toggle from '@/components/Toggle'
 
 export default {
   name: 'Signup',
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     signUpUser(){
-    fetch(this.have_id ? '/signup-join' : '/signup-create', {
+    fetch(this.have_id ? '/api/signup-join' : '/api/signup-create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -63,7 +63,9 @@ export default {
 </script>
 
 <style lang="scss">
-.signup {
-  padding: 20px;
+.swimIn{
+  .signup {
+    padding: 20px;
+  }
 }
 </style>

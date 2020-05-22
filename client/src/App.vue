@@ -1,22 +1,17 @@
 <template>
   <div id="app">
     <Toast v-if="$root.toast" />
-    <Entering v-if="!$root.user"></Entering>
-    <Dashboard v-if="$root.user"></Dashboard>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Entering from './pages/Entering'
 import Toast from './components/Toast'
-import Dashboard from './pages/Dashboard'
 
 export default {
   name: 'App',
   components: {
-    Entering,
-    Toast,
-    Dashboard
+    Toast
   }
 }
 </script>
@@ -32,6 +27,6 @@ export default {
   max-width: var(--appMaxWidth);
   margin: auto;
   border-radius: 18px;
-  box-shadow: 4px 2px 16px var(--shadowColor), -4px -2px 16px var(--white);
+  // box-shadow: 4px 2px 16px var(--shadowColor), -4px -2px 16px var(--white);
 }
 </style>
