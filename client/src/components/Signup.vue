@@ -50,6 +50,12 @@ export default {
             icon: "info"
             }
           }
+          else {
+            this.$root.toast = {
+            message: 'Sign up successfull',
+            icon: "success"
+            }
+          }
         }
         if(res.code == 0){
           this.$root.toast = {
