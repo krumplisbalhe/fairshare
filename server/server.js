@@ -33,7 +33,6 @@ knex.schema.hasTable('tasks').then( exists => {
       table.increments('task_id')
       table.string('task_name')
       table.string('household_id_fk').references('household_id').inTable('users').notNull().onDelete('cascade')
-      table.integer('deadline')
       table.integer('point')
       table.integer('category')
       table.integer('is_done')

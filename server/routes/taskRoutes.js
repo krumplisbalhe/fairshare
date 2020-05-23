@@ -28,10 +28,6 @@ tasks.post(
       .not()
       .isEmpty()
       .withMessage('Error'),
-    check('deadline')
-      .not()
-      .isEmpty()
-      .withMessage('Deadline is missing'),
     check('point')
       .not()
       .isEmpty()
@@ -57,7 +53,6 @@ tasks.post(
     await knex('tasks').insert({
       task_name: req.body.task_name,
       household_id_fk: req.body.household_id,
-      deadline: req.body.deadline,
       point: req.body.point,
       category: req.body.category,
       is_done: 0,
@@ -99,10 +94,6 @@ tasks.put(
       .not()
       .isEmpty()
       .withMessage('Error'),
-    check('deadline')
-      .not()
-      .isEmpty()
-      .withMessage('Deadline is missing'),
     check('point')
       .not()
       .isEmpty()
@@ -128,7 +119,6 @@ tasks.put(
     await knex('tasks').where({'task_id': req.body.task_id}).update({
       task_name: req.body.task_name,
       household_id_fk: req.body.household_id,
-      deadline: req.body.deadline,
       point: req.body.point,
       category: req.body.category,
       is_done: req.body.is_done,

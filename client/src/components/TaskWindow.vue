@@ -4,7 +4,6 @@
       <Close v-if="$root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen"  @click="closeTaskWindow"></Close>
       <div v-if="$root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen" class="formContainer">
         <input v-model="dynamicValues.task_name" type="text" placeholder="Task name">
-        <input v-model="dynamicValues.deadline" type="text" placeholder="Deadline">
         <input v-model="dynamicValues.point" type="text" placeholder="Point">
         <label for="Category">Category</label>
         <select v-model="dynamicValues.category" type="text" name="Category">
@@ -115,7 +114,6 @@ export default {
     return {
       formData: {
         task_name: '',
-        deadline: '',
         point: '',
         category: '',
         frequency: ''
