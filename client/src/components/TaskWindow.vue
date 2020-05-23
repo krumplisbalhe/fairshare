@@ -54,7 +54,7 @@ export default {
     },
     saveTask(){
     fetch('/api/tasks', {
-      method: this.editingTask ? 'PUT' :'POST',
+      method: this.$root.isEditTaskWindowOpen ? 'PUT' :'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.$root.access_token}`
@@ -67,6 +67,7 @@ export default {
         if(res.code == 1){
           this.$root.getTasks()
           this.$root.isNewTaskWindowOpen = false
+          this.$root.isEditTaskWindowOpen = false
         }
         if(res.code == 0){
           this.$root.toast = {
@@ -79,13 +80,13 @@ export default {
       })
     },
     moveItemToDone(item){
-      fetch('/api/tasks', {
+      fetch('/api/task-done', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.$root.access_token}`
       },
-      body: JSON.stringify({...item, is_done: 1,time_spent: this.time, household_id: this.$root.user.household_id})
+      body: JSON.stringify({...item, is_done: 1, time_spent: Number(this.time), household_id: this.$root.user.household_id})
     })
     .then(res => res.json())
     .then(res => {
@@ -107,7 +108,7 @@ export default {
   },
   computed:{
   dynamicValues(){
-    return this.editingTask || this.formData
+    return this.$root.isEditTaskWindowOpen ? this.editingTask : this.formData
   }
   },
   data() {

@@ -23,6 +23,8 @@ knex.schema.hasTable('users').then( exists => {
       table.string('email')
       table.string('password')
       table.string('household_id')
+      table.integer('time')
+      table.integer('point')
     }).then()
   }
 })
@@ -37,7 +39,6 @@ knex.schema.hasTable('tasks').then( exists => {
       table.integer('category')
       table.integer('is_done')
       table.integer('assigned_to')
-      table.integer('time_spent')
       table.string('frequency')
     }).then()
   }

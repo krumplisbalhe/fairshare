@@ -57,7 +57,6 @@ tasks.post(
       category: req.body.category,
       is_done: 0,
       assigned_to: req.body.assigned_to || 0,
-      time_spent: 0,
       frequency: req.body.frequency
     })
 
@@ -123,7 +122,6 @@ tasks.put(
       category: req.body.category,
       is_done: req.body.is_done,
       assigned_to: req.body.assigned_to,
-      time_spent: req.body.time_spent,
       frequency: req.body.frequency
     })
 
@@ -164,6 +162,83 @@ tasks.delete(
       code: 1,
       response: updatedTasks
     })
+})
+
+router.put('/api/task-done',
+  jwtCheck,
+  [
+    check('task_name')
+      .not()
+      .isEmpty()
+    .withMessage('Please give a valid name to the task'),
+    check('task_id')
+      .not()
+      .isEmpty()
+      .withMessage('Error'),
+    check('household_id')
+      .not()
+      .isEmpty()
+      .withMessage('Error'),
+    check('point')
+      .not()
+      .isEmpty()
+      .withMessage('Point estimate is missing'),
+    check('category')
+      .not()
+      .isEmpty()
+      .withMessage('Category is missing'),
+    check('frequency')
+      .not()
+      .isEmpty()
+      .withMessage('Frequency is missing')
+  ],
+  async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.json({
+        code: 0,
+        error: errors.array()
+      })
+    }
+
+    const user = await knex('users').where('user_id', req.body.assigned_to)
+
+    return knex.transaction( (transaction) => {
+      return knex('tasks')
+        .transacting(transaction)
+        .where({'task_id': req.body.task_id})
+        .update({
+          task_name: req.body.task_name,
+          household_id_fk: req.body.household_id,
+          point: req.body.point,
+          category: req.body.category,
+          is_done: req.body.is_done,
+          assigned_to: req.body.assigned_to,
+          frequency: req.body.frequency
+        })
+        .then( (response) => {
+          return knex('users')
+            .transacting(transaction)
+            .where({'user_id': req.body.assigned_to})
+            .update({time: user[0].time + req.body.time_spent, point: user[0].point + req.body.point})
+            .then()
+        })
+        .then(transaction.commit)
+        .catch(transaction.rollback)
+    })
+    .then( () => {
+      // transaction suceeded, data written
+      return res.json({
+        code: 1,
+      })
+    })
+    .catch( (error) => {
+      // transaction failed, data rolled back
+      return res.json({
+        code: 0,
+        msg: error
+      })
+    });
 })
 
 module.exports = router

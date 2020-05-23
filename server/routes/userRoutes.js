@@ -56,7 +56,9 @@ router.post('/api/signup-create',
       user_name: req.body.user_name,
       email: req.body.email,
       password: hashedPassword,
-      household_id: uniqueId
+      household_id: uniqueId,
+      time: 0,
+      point: 0
     })
 
     return res.json({
@@ -118,7 +120,9 @@ router.post('/api/signup-join',
       user_name: req.body.user_name,
       email: req.body.email,
       password: hashedPassword,
-      household_id: req.body.household_id
+      household_id: req.body.household_id,
+      point: 0,
+      time: 0
     })
 
     return res.json({
