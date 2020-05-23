@@ -1,11 +1,12 @@
 <template>
   <div class="bottomNav">
-    <div @click="setNavActive('tasks')" class="tab btn left" :class="active === 'tasks' ? 'active' : ''">
+    <div @click="setNavActive('tasks')" class="bottomTab left" :class="active === 'tasks' ? 'active' : ''">
       <p>Tasks</p>
     </div>
-    <div @click="setNavActive('balance')" class="tab btn right" :class="active === 'balance' ? 'active' : ''">
+    <div @click="setNavActive('balance')" class="bottomTab right" :class="active === 'balance' ? 'active' : ''">
       <p>Balance</p>
     </div>
+    <hr />
   </div>
 </template>
 
@@ -31,39 +32,52 @@ export default {
 
 <style lang="scss" scoped>
 .bottomNav {
+  width: 360px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
   box-shadow: 4px 2px 12px rgba(136, 165, 191, 0.48), -4px -2px 12px #FFFFFF;
-}
 
-.tab{
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  height: 100%;
-  width: 50%;
-  &.left{
-    border-bottom-left-radius: 16px;
-  }
-  &.right{
-    border-bottom-right-radius: 16px;
-  }
-  p{
-    font-size: 15px;
-    color: rgba(68, 68, 68, 0.4);
-    text-shadow: 4px 2px 6px var(--shadowColor), -4px -2px 6px #FFFFFF;
-  }
-}
+  .bottomTab{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    height: 80%;
+    width: 50%;
 
-.btn.active{
-  box-shadow: inset 3px 3px 7px var(--shadowColor), inset -3px -3px 7px #FFFFFF;
-  transition: all 0.3s ease-in-out;
+    &.right.active ~ hr {
+      margin-left: 25%;
+    }
+
+    &.left.active ~ hr {
+      margin-left: -25%;
+    }
+
+    p{
+      width: 30%;
+      text-align: center;
+      font-size: 15px;
+      color: var(--grey);
+      text-shadow: 4px 2px 6px var(--shadowColor), -4px -2px 6px #FFFFFF;
+    }
+  }
+
+  hr {
+    height: 4px;
+    bottom: 5px;
+    position: absolute;
+    width: 25%;
+    margin: 0;
+    background: var(--lightBlue);
+    border: none;
+    transition: .3s ease-in-out;
+    box-shadow: 0 0 10px var(--lightBlue);
+
+  }
 }
 </style>

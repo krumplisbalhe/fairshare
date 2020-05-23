@@ -62,7 +62,6 @@ tasks.post(
       category: req.body.category,
       is_done: 0,
       assigned_to: req.body.assigned_to || 0,
-      description: req.body.description,
       time_spent: 0,
       frequency: req.body.frequency
     })
@@ -134,7 +133,6 @@ tasks.put(
       category: req.body.category,
       is_done: req.body.is_done,
       assigned_to: req.body.assigned_to,
-      description: req.body.description,
       time_spent: req.body.time_spent,
       frequency: req.body.frequency
     })
@@ -171,10 +169,10 @@ tasks.delete(
 
     await knex('tasks').where({'task_id': req.body.task_id}).delete()
 
-    const updatedTask = await knex('tasks').where('household_id_fk', req.body.household_id)
+    const updatedTasks = await knex('tasks').where('household_id_fk', req.body.household_id)
     return res.json({
       code: 1,
-      response: updatedTask
+      response: updatedTasks
     })
 })
 

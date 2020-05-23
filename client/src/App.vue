@@ -17,7 +17,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/global.css';
+@import './assets/global.scss';
+
 #app {
   height: 100vh;
   display: flex;

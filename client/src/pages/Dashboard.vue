@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <button @click="signOut()">
+    <button class="signOut" @click="signOut()">
       Sign out
     </button>
     <div class="date">
@@ -8,7 +8,7 @@
     </div>
     <div class="panel">
       <Tasks v-if="activeNav === 'tasks'"></Tasks>
-      <h1 v-if="activeNav === 'balance'">balance</h1>
+      <Balance v-if="activeNav === 'balance'">balance</Balance>
     </div>
     <BottomNav @setNav="val => activeNav = val" />
   </div>
@@ -17,12 +17,14 @@
 <script>
 import BottomNav from '@/components/BottomNav'
 import Tasks from '@/components/Tasks'
+import Balance from '@/components/Balance'
 
 export default {
   name: 'Dashboard',
   components: {
     BottomNav,
-    Tasks
+    Tasks,
+    Balance
   },
   created(){
     this.$root.getTasks(),
@@ -71,25 +73,25 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.header {
-  height: 20%;
-  width: 100%;
-}
+  .date {
+    height: 8%;
+  }
 
-.panel {
-  height: 70%;
-  width: 100%;
-}
+  .panel {
+    height: 80%;
+    width: 100%;
+  }
 
-.bottomNav {
-  height: 10%;
-  width: 100%;
-}
+  .signOut {
+    margin: 10px;
+    font-weight: 500;
+    align-self: flex-end;
+  }
 
-.date {
-  height: 20%;
+  .bottomNav {
+    margin: 5px;
+  }
 }
 
 </style>

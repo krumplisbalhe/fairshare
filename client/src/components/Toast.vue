@@ -1,7 +1,9 @@
 <template>
   <transition name="slideDown" appear>
-    <div v-if="$root.toast" class="toast">
+    <div v-if="$root.toast" class="toast" :class="{error: $root.toast.icon === 'error', success: $root.toast.icon === 'success', info: $root.toast.icon === 'info'}">
       <Error v-if="$root.toast.icon === 'error'" />
+      <Success v-if="$root.toast.icon === 'success'" />
+      <Info v-if="$root.toast.icon === 'info'" />
       <div class="verticalDivider"></div>
       <p>{{ $root.toast.message }}</p>
     </div>
@@ -10,11 +12,15 @@
 
 <script>
 import Error from '@/assets/icons/error.svg'
+import Success from '@/assets/icons/tick.svg'
+import Info from '@/assets/icons/info.svg'
 
 export default {
   name: 'Toast',
   components: {
     Error,
+    Success,
+    Info
   },
   methods:{
   },
@@ -23,22 +29,33 @@ export default {
     }
   },
   created() {
-    setTimeout(() => this.$root.toast = null, 2500)
+    setTimeout(() => this.$root.toast = null, this.$root.toast.icon === 'info' ? 20000 : 2500)
   }
 }
 </script>
 
 <style lang="scss">
 .toast {
-  z-index: 2;
+  z-index: 4;
   position: absolute;
   width: var(--appMaxWidth);
   height: 55px;
   display: flex;
   align-items: center;
-  background-color: var(--colorOrange);
   top: 15px;
   box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
+
+  &.error{
+    background-color: var(--colorOrange);
+  }
+
+  &.success{
+    background-color: green;
+  }
+
+  &.info{
+    background-color: var(--lightBlue);
+  }
 
   .verticalDivider {
     width: 20px;

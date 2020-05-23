@@ -1,43 +1,59 @@
 <template>
   <div class="tasks">
     <div class="topNav">
-      <div @click="setActiveTab('noone')" class="tab" :class="active_tab === 'noone' ? 'active_tab' : ''">All tasks</div>
+      <div @click="setActiveTab('noone')" class="tab" :class="active_tab === 'noone' ? 'active_tab' : ''">Unassigned</div>
       <div @click="setActiveTab('person1')" class="tab" :class="active_tab === 'person1' ? 'active_tab' : ''">{{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}</div>
       <div @click="setActiveTab('person2')" class="tab" :class="active_tab === 'person2' ? 'active_tab' : ''">{{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}</div>
     </div>
     <div class="listContainer">
       <div class="listItem" v-for="item in filteredTasks" :key="item.task_id">
-        <div class="indicator" :class="item.is_done === 1 ? 'done' : ''"></div>
-        <div @click="assignTaskToUser($root.usersOfHousehold[0].user_id, item)">{{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}</div>
-        <div class="pillMiddle">
-          <p>{{item.task_name}}</p>
-          <p>Edit</p>
+        <div class="listItemTopRow">
+          <Close @click="$root.deleteTask(item.task_id)"></Close>
+          <div v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[0].user_id, item)">{{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}</div>
         </div>
-        <div @click="assignTaskToUser($root.usersOfHousehold[1].user_id, item)">{{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}</div>
+        <div class="listItemMiddleRow">
+          <p>{{item.task_name}}</p>
+          <Done @click="openTimeWindow(item)" v-if="item.assigned_to !== 0" :class="{done: item.is_done !== 0, undone: item.is_done === 0}"></Done>
+        </div>
+          <div class="listItemBottomRow">
+          <Edit @click="openEditTaskWindow(item)"></Edit>
+          <div v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[1].user_id, item)">{{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}</div>
+        </div>
       </div>
     </div>
     <div class="addTaskArea">
-      <button @click="openNewTaskWindow" class="addTaskButton">+</button>
+      <button @click="openNewTaskWindow" class="addTaskButton">
+        <Plus></Plus>
+      </button>
       <span class="movingCircle1"></span>
       <span class="movingCircle2"></span>
     </div>
-    <NewTaskWindow v-if="$root.isnewTaskWindowOpen === true" />
+    <TaskWindow :editingTask="editingTask" v-if="$root.isNewTaskWindowOpen === true || $root.isEditTaskWindowOpen === true || $root.isAddingTimeWindowOpen" />
   </div>
 </template>
 
 <script>
-import NewTaskWindow from '@/components/NewTaskWindow'
+import TaskWindow from '@/components/TaskWindow'
+import Plus from '@/assets/icons/plus.svg'
+import Close from '@/assets/icons/close.svg'
+import Edit from '@/assets/icons/edit.svg'
+import Done from '@/assets/icons/done.svg'
 
 export default {
   name: 'Tasks',
   components: {
-    NewTaskWindow,
+    TaskWindow,
+    Plus,
+    Close,
+    Edit,
+    Done
   },
   created(){
   },
   data(){
     return {
-      active_tab: 'noone'
+      active_tab: 'noone',
+      editingTask: null
     }
   },
   computed:{
@@ -59,7 +75,11 @@ export default {
       this.active_tab = nameOfTab
     },
     openNewTaskWindow(){
-      this.$root.isnewTaskWindowOpen = true
+      this.$root.isNewTaskWindowOpen = true
+    },
+    openEditTaskWindow(item){
+      this.$root.isEditTaskWindowOpen = true
+      this.editingTask = item
     },
     assignTaskToUser(user_id, task){
       fetch('/api/tasks', {
@@ -78,10 +98,6 @@ export default {
       .then(res => {
         console.log(res)
           if(res.code == 1){
-            this.$root.toast = {
-              message: "successfully changed task",
-              icon: "error"
-            }
             this.$root.getTasks()
           }
           if(res.code == 0){
@@ -93,7 +109,36 @@ export default {
         }).catch(error => {
           console.log(error)
         })
+    },
+    openTimeWindow(item){
+      this.$root.isAddingTimeWindowOpen = true
+      this.editingTask = item
     }
+    // moveItemToDone(item){
+    //   fetch('/api/tasks', {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `Bearer ${this.$root.access_token}`
+    //   },
+    //   body: JSON.stringify({...item, is_done: 1, household_id: this.$root.user.household_id})
+    // })
+    // .then(res => res.json())
+    // .then(res => {
+    //   console.log(res)
+    //     if(res.code == 1){
+    //       this.$root.getTasks()
+    //     }
+    //     if(res.code == 0){
+    //       this.$root.toast = {
+    //         message: res.error[0].msg,
+    //         icon: "error"
+    //       }
+    //     }
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // }
   }
 }
 </script>
@@ -109,42 +154,40 @@ export default {
 .topNav {
   display: flex;
   justify-content: space-around;
-  border: 4px solid var(--backgroundColor);
-  width: 80%;
+  width: 360px;
   background-color: var(--backgroundColor);
-  border-radius: 15px;
   margin-bottom: 15px;
   height: 40px;
-}
 
-.tab {
-  width: 100%;
-  height: 70%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  padding: 10px 10px;
-  background-color: var(--back-color);
-  box-shadow: inset 0px 0px 4px rgba(255, 255, 255, .2), inset 7px 7px 15px rgba(55, 84, 170, 0), inset -7px -7px 20px rgba(255, 255, 255, 0);
-  transition: box-shadow .4s ease;
-  cursor: pointer;
-  color: rgba(68, 68, 68, 0.4);
-  text-shadow: 4px 2px 6px var(--shadowColor), -4px -2px 6px #FFFFFF;
-}
+  .tab {
+    width: 100%;
+    height: 70%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 10px 10px;
+    background-color: var(--back-color);
+    box-shadow: inset 0px 0px 4px rgba(255, 255, 255, .2), inset 7px 7px 15px rgba(55, 84, 170, 0), inset -7px -7px 20px rgba(255, 255, 255, 0);
+    transition: box-shadow .4s ease;
+    cursor: pointer;
+    color: var(--grey);
+    text-shadow: 4px 2px 6px var(--shadowColor), -4px -2px 6px var(--white);
+  }
 
-.tab:first-child {
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-}
+    &:first-child {
+      border-top-left-radius: 25px;
+      border-bottom-left-radius: 25px;
+    }
 
-.tab:last-child {
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
+    &:last-child {
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
 
-.active_tab {
-  box-shadow: inset 3px 3px 7px var(--shadowColor), inset -3px -3px 7px #FFFFFF;
-  transition: all 600ms ease;
+  .active_tab {
+    box-shadow: inset 3px 3px 7px var(--shadowColor), inset -3px -3px 7px #FFFFFF;
+    transition: all 600ms ease;
+  }
 }
 
 .addTaskArea {
@@ -174,31 +217,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 70%;
-  width: 80%;
-  margin: 10px 20px;
-  padding: 10px 20px;
+  height: 80%;
+  width: 340px;
+  margin: 10px 0px;
+  padding: 10px;
   border-radius: 18px;
   overflow-y: scroll;
   box-shadow: inset 1px 1px 1px rgba( var(--color-light), 0.4 ), inset -1px -1px 1px rgba( var(--color-shadow), 0.04 ), inset 0 0 0 2px var(--backgroundColor), inset -2px -2px 2px 2px rgba( var(--color-light), 0.4), inset -4px -4px 4px 2px rgba( var(--color-light), 0.4), -1px -1px 4px 0px rgba( var(--color-light), 0.4), -2px -2px 8px 0px rgba( var(--color-light), 0.4), inset 2px 2px 2px 2px rgba( var(--color-shadow), 0.04), inset 4px 4px 4px 2px rgba( var(--color-shadow), 0.04), 1px 1px 4px 0px rgba( var(--color-shadow), 0.04), 2px 2px 8px 0px rgba( var(--color-shadow), 0.04);
-}
-
-.indicator {
-  position: absolute;
-  width: 100px;
-  height: 6px;
-  background-color: green;
-  border-radius: 25px;
-  top: 6px;
-  left: calc(50% - 50px);
-
-  &.done {
-    background-color: rgb(132, 175, 132);
-  }
-
-  &.expired {
-    background-color: rgb(212, 119, 119);
-  }
 }
 
 .listItem {
@@ -208,9 +233,50 @@ export default {
   border-radius: 18px;
   box-shadow: 0.3rem 0.3rem 0.6rem var(--shadowColor), -0.2rem -0.2rem 0.5rem var(--white);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   position: relative;
+
+  .listItemTopRow, .listItemBottomRow{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  svg{
+    width: 10px;
+    height: 10px;
+  }
+
+  .listItemMiddleRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;
+  }
+
+    .done, .undone{
+      width: 30px;
+      height: 30px;
+    }
+
+    .done {
+      pointer-events: none;
+    }
+
+    .done path{
+      fill: green;
+    }
+
+    .undone {
+      cursor: pointer;
+    }
+    .undone path{
+      fill: var(--grey);
+    }
 }
 
 .movingCircle1, .movingCircle2 {
@@ -248,13 +314,6 @@ export default {
     transform: scale(2);
     opacity: 0;
   }
-}
-
-.pillMiddle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 </style>

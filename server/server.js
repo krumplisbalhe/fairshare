@@ -38,8 +38,7 @@ knex.schema.hasTable('tasks').then( exists => {
       table.integer('category')
       table.integer('is_done')
       table.integer('assigned_to')
-      table.string('description')
-      table.string('time_spent')
+      table.integer('time_spent')
       table.string('frequency')
     }).then()
   }

@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .toggleWrapper {
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@ export default {
 }
 
 .toggle {
-  width: 60px;
+  width: 48px;
 
   input {
   display: none;
@@ -42,7 +42,7 @@ label {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 30px;
+  height: 25px;
   box-shadow: .3rem .3rem .6rem var(--shadowColor), -.2rem -.2rem .5rem var(--white);;
   background: var(--backgroundColor);
   position: relative;
@@ -52,9 +52,9 @@ label {
   &::after {
     content: "";
     position: absolute;
-    left: .4rem;
-    width: 20px;
-    height: 20px;
+    left: 4px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: var(--actionTextColor);
     transition: all 0.4s ease;
@@ -65,7 +65,7 @@ label {
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(330deg, var(--colorPurple) 0%, var(--colorOrange) 100%);
+    background: linear-gradient(280deg, var(--white) 0%, var(--lightBlue) 100%);
     opacity: 0;
     transition: all 0.4s ease;
   }
@@ -83,7 +83,7 @@ label {
 .toggleText {
   padding-left: 15px;
   text-shadow: 1px 1px 0 var(--white);
-  font-size: 15px;
-  color: var(--actionTextColor);
+  font-size: 12px;
+  color: #757575;
 }
 </style>

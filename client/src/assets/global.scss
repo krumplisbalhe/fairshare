@@ -2,12 +2,16 @@
   --backgroundColor: #EBECF0;
   --shadowColor: #BABECC;
   --white: #FFFF;
-  --actionTextColor: #61677C;
+  --actionTextColor: #737373;
   --colorPurple: #D1C9DA;
   --colorOrange: #EBD2CB;
   --appMaxWidth: 400px;
   --color-shadow: 12,13,18;
   --color-light: 255, 255, 255;
+  --classicBlue: #0F4C82;
+  --classicBlueLighter: #427FB5;
+  --lightBlue: #9CB7D4;
+  --grey: rgba(68, 68, 68, 0.4);
 }
 
 *{
@@ -39,7 +43,7 @@ button {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   font-weight: 600;
-  padding: 10px;
+  padding: 10px 15px;
 }
 
 button:hover {
@@ -64,14 +68,11 @@ input:focus {
   box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
 }
 
-.gradientIcon {
-  fill: url(#MyGradient);
+.icon{
+  height: 20px;
+  width: 20px;
 }
 
-.gradientIcon > * {
-  stroke-width: 15;
-}
-
-.icon {
-  fill: var(--actionTextColor);
+.icon path{
+  fill: var(--grey);
 }

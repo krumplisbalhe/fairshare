@@ -44,10 +44,13 @@ export default {
     .then(res => {
       console.log(res)
         if(res.code == 1){
-            this.$root.user = res.user_data
-            // this.$router.push('/dashboard')
-          console.log(res)
+          if(!this.have_id){
+            this.$root.toast = {
+            message: `Your partner can sign up with the household ID: ${res.household_id}`,
+            icon: "info"
+            }
           }
+        }
         if(res.code == 0){
           this.$root.toast = {
             message: res.error[0].msg,
@@ -67,5 +70,9 @@ export default {
   .signup {
     padding: 20px;
   }
+}
+
+.toggle{
+  margin-left: 5px;
 }
 </style>

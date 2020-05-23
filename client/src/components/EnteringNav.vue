@@ -20,8 +20,8 @@
       <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
       </defs>
       <g class="parallax">
-      <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(148, 121, 170, 0.3)" />
-      <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(239, 150, 116, 0.3)" />
+      <use xlink:href="#gentle-wave" x="48" y="0" fill="var(--classicBlue)" />
+      <use xlink:href="#gentle-wave" x="48" y="3" fill="var(--lightBlue)" />
       <use xlink:href="#gentle-wave" x="48" y="4" fill="rgba(235, 236, 240, 0.3)" />
       <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255, 255, 255, 0.3)" />
       <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(235, 236, 240, 0.3)" />
@@ -89,6 +89,7 @@ export default {
 
   button {
     margin: 10px;
+    font-weight: 500;
   }
 }
 
