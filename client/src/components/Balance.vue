@@ -13,7 +13,7 @@
             ]"
             type="pie"
             :height="400"
-            :colors="['var(--classicBlue)', 'var(--lightBlue)']"
+            :colors="['var(--classicBlue)', 'var(--paprika)']"
             :dataSets="dynamicData">
       </vue-frappe>
   </div>
@@ -29,6 +29,9 @@ export default {
       active_tab: 'points'
     }
   },
+  created(){
+    this.$root.getUsersOfHousehold()
+  },
   computed: {
     dynamicData(){
         return [
@@ -40,15 +43,15 @@ export default {
     },
     user1(){
       if(this.active_tab === 'points'){
-        return this.$root.tasks.filter(e => e.is_done === 1 && e.assigned_to === this.$root.usersOfHousehold[0].user_id).map(a => a.point).reduce((a, b) => a + b, 0)
+        return this.$root.usersOfHousehold[0].point
       }
-      else return this.$root.tasks.filter(e => e.is_done === 1 && e.assigned_to === this.$root.usersOfHousehold[0].user_id).map(a => a.time_spent).reduce((a, b) => a + b, 0)
+      else return this.$root.usersOfHousehold[0].time
     },
     user2(){
       if(this.active_tab === 'points'){
-        return this.$root.tasks.filter(e => e.is_done === 1 && e.assigned_to === this.$root.usersOfHousehold[1].user_id).map(a => a.point).reduce((a, b) => a + b, 0)
+        return this.$root.usersOfHousehold[1].point
       }
-      else return  this.$root.tasks.filter(e => e.is_done === 1 && e.assigned_to === this.$root.usersOfHousehold[1].user_id).map(a => a.time_spent).reduce((a, b) => a + b, 0)
+      else return this.$root.usersOfHousehold[1].time
     }
   },
   methods: {
@@ -59,7 +62,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .balance {
   height: 100%;

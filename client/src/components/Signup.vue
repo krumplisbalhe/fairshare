@@ -28,51 +28,51 @@ export default {
   },
   methods: {
     signUpUser(){
-    fetch(this.have_id ? '/api/signup-join' : '/api/signup-create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user_name: this.user_name,
-        email: this.email,
-        password: this.password,
-        household_id: this.household_id
+      fetch(this.have_id ? '/api/signup-join' : '/api/signup-create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_name: this.user_name,
+          email: this.email,
+          password: this.password,
+          household_id: this.household_id
+        })
       })
-    })
-    .then(res => res.json())
-    .then(res => {
-      console.log(res)
-        if(res.code == 1){
-          if(!this.have_id){
-            this.$root.toast = {
-            message: `Your partner can sign up with the household ID: ${res.household_id}`,
-            icon: "info"
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+          if(res.code == 1){
+            if(!this.have_id){
+              this.$root.toast = {
+              message: `Your partner can sign up with this household ID: ${res.household_id}`,
+              icon: "info"
+              }
+            }
+            else {
+              this.$root.toast = {
+              message: 'Sign up successful',
+              icon: "success"
+              }
             }
           }
-          else {
+          if(res.code == 0){
             this.$root.toast = {
-            message: 'Sign up successfull',
-            icon: "success"
+              message: res.error[0].msg,
+              icon: "error"
             }
           }
-        }
-        if(res.code == 0){
-          this.$root.toast = {
-            message: res.error[0].msg,
-            icon: "error"
-          }
-        }
-      }).catch(error => {
-        console.log(error)
-      })
+        }).catch(error => {
+          console.log(error)
+        })
     }
   }
 }
 </script>
 
 <style lang="scss">
-.swimIn{
+.fadeIn{
   .signup {
     padding: 20px;
   }

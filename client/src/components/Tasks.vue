@@ -48,8 +48,6 @@ export default {
     Edit,
     Done
   },
-  created(){
-  },
   data(){
     return {
       active_tab: 'noone',
@@ -114,31 +112,6 @@ export default {
       this.$root.isAddingTimeWindowOpen = true
       this.editingTask = item
     }
-    // moveItemToDone(item){
-    //   fetch('/api/tasks', {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${this.$root.access_token}`
-    //   },
-    //   body: JSON.stringify({...item, is_done: 1, household_id: this.$root.user.household_id})
-    // })
-    // .then(res => res.json())
-    // .then(res => {
-    //   console.log(res)
-    //     if(res.code == 1){
-    //       this.$root.getTasks()
-    //     }
-    //     if(res.code == 0){
-    //       this.$root.toast = {
-    //         message: res.error[0].msg,
-    //         icon: "error"
-    //       }
-    //     }
-    //   }).catch(error => {
-    //     console.log(error)
-    //   })
-    // }
   }
 }
 </script>
@@ -162,16 +135,15 @@ export default {
   .tab {
     width: 100%;
     height: 70%;
+    // border: var(--solidBorder);
     justify-content: center;
     align-items: center;
     display: flex;
-    padding: 10px 10px;
+    padding: 20px 10px 0 10px;
     background-color: var(--back-color);
-    box-shadow: inset 0px 0px 4px rgba(255, 255, 255, .2), inset 7px 7px 15px rgba(55, 84, 170, 0), inset -7px -7px 20px rgba(255, 255, 255, 0);
-    transition: box-shadow .4s ease;
+    transition: var(--transition);
     cursor: pointer;
-    color: var(--grey);
-    text-shadow: 4px 2px 6px var(--shadowColor), -4px -2px 6px var(--white);
+    color: var(--actionTextColor);
   }
 
     &:first-child {
@@ -185,8 +157,7 @@ export default {
     }
 
   .active_tab {
-    box-shadow: inset 3px 3px 7px var(--shadowColor), inset -3px -3px 7px #FFFFFF;
-    transition: all 600ms ease;
+    // box-shadow: var(--boxShadowInset);
   }
 }
 
@@ -275,7 +246,7 @@ export default {
       cursor: pointer;
     }
     .undone path{
-      fill: var(--grey);
+      fill: var(--actionTextColor);
     }
 }
 

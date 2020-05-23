@@ -1,24 +1,27 @@
 :root {
-  --backgroundColor: #EBECF0;
-  --shadowColor: #BABECC;
+  --backgroundColor: #FFFCF6;
+  --shadowColor: #D9D6D0;
+  --inputTextColor: #757575;
   --white: #FFFF;
-  --actionTextColor: #737373;
-  --colorPurple: #D1C9DA;
-  --colorOrange: #EBD2CB;
+  --actionTextColor: #61605d;
   --appMaxWidth: 400px;
-  --color-shadow: 12,13,18;
-  --color-light: 255, 255, 255;
-  --classicBlue: #0F4C82;
-  --classicBlueLighter: #427FB5;
-  --lightBlue: #9CB7D4;
-  --grey: rgba(68, 68, 68, 0.4);
+  //these two
+  --color-shadow: 97, 96, 93;
+  --color-light: 217, 214, 208;
+  --classicBlue: #0F4C81;
+  --paprika: #DF6741;
+  --green: #1B4D32;
+  --boxShadow: -2px -2px 5px var(--white), 2px 2px 5px var(--shadowColor);
+  --boxShadowInset: inset 2px 2px 5px var(--shadowColor), inset -2px -2px 5px var(--white);
+  --transition: all 0.3s ease-in-out;
+  --solidBorder: 0.5px solid var(--shadowColor);
 }
 
-*{
+* {
   -webkit-tap-highlight-color: transparent;
 }
 
-body{
+body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--backgroundColor);
   margin: 0px;
@@ -33,35 +36,31 @@ button, input {
   outline: 0;
   border-radius: 25px;
   background-color: var(--backgroundColor);
-  text-shadow: 1px 1px 0 var(--white);
 }
 
 button {
   color: var(--actionTextColor);
   font-weight: bold;
-  box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
-  transition: all 0.3s ease-in-out;
+  box-shadow: var(--boxShadow);
+  border: var(--solidBorder);
+  transition: var(--transition);
   cursor: pointer;
-  font-weight: 600;
   padding: 10px 15px;
 }
 
-button:hover {
-  box-shadow: -2px -2px 5px var(--white), 2px 2px 5px var(--shadowColor);
-}
-
 button:active {
-  box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
+  box-shadow: none;
 }
 
 input {
-  box-shadow: inset 2px 2px 5px var(--shadowColor), inset -5px -5px 10px var(--white);
+  box-shadow: var(--boxShadowInset);
   width: 100%;
   box-sizing: border-box;
-  transition: all 0.2s ease-in-out;
+  transition: var(--transition);
   appearance: none;
   margin-bottom: 30px;
   padding: 16px;
+  border: var(--solidBorder);
 }
 
 input:focus {
@@ -69,10 +68,10 @@ input:focus {
 }
 
 .icon{
-  height: 20px;
-  width: 20px;
+  height: 15px;
+  width: 15px;
 }
 
 .icon path{
-  fill: var(--grey);
+  fill: var(--actionTextColor);
 }

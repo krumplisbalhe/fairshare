@@ -57,7 +57,8 @@ tasks.post(
       category: req.body.category,
       is_done: 0,
       assigned_to: req.body.assigned_to || 0,
-      frequency: req.body.frequency
+      frequency: req.body.frequency,
+      modified_at: 0
     })
 
     return res.json({
@@ -122,7 +123,7 @@ tasks.put(
       category: req.body.category,
       is_done: req.body.is_done,
       assigned_to: req.body.assigned_to,
-      frequency: req.body.frequency
+      frequency: req.body.frequency,
     })
 
     const updatedTask = await knex('tasks').where('task_id', req.body.task_id)
@@ -214,7 +215,8 @@ router.put('/api/task-done',
           category: req.body.category,
           is_done: req.body.is_done,
           assigned_to: req.body.assigned_to,
-          frequency: req.body.frequency
+          frequency: req.body.frequency,
+          modified_at: req.body.modified_at
         })
         .then( (response) => {
           return knex('users')

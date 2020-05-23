@@ -66,7 +66,26 @@ new Vue({
             icon: "error"
           }
 			})
-    }
+    },
+    getUsersOfHousehold(){
+      fetch(`/api/usersOfHousehold?household_id=${this.user.household_id}`, {
+        method: 'GET',
+        headers:{
+          'Authorization': `Bearer ${this.access_token}`
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res.response)
+        this.$root.usersOfHousehold = res.response
+      }).catch(error => {
+        console.log(error)
+        this.$root.toast = {
+            message: 'Problem with getting data.',
+            icon: "error"
+          }
+      })
+    },
   },
   router,
   render: h => h(App),

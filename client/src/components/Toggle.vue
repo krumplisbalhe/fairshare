@@ -14,12 +14,6 @@
 export default {
   name: 'Toggle',
   props: ['value', 'toggleText'],
-  components: {
-  },
-  data () {
-		return {
-		}
-  },
 }
 </script>
 
@@ -43,11 +37,12 @@ label {
   align-items: center;
   width: 100%;
   height: 25px;
-  box-shadow: .3rem .3rem .6rem var(--shadowColor), -.2rem -.2rem .5rem var(--white);;
+  box-shadow: var(--boxShadow);
   background: var(--backgroundColor);
   position: relative;
   cursor: pointer;
   border-radius: 25px;
+  border: var(--solidBorder);
 
   &::after {
     content: "";
@@ -56,7 +51,7 @@ label {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: var(--actionTextColor);
+    background: var(--classicBlue);
     transition: all 0.4s ease;
   }
 
@@ -65,11 +60,10 @@ label {
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(280deg, var(--white) 0%, var(--lightBlue) 100%);
+    background: linear-gradient(280deg, var(--white) 0%, var(--paprika) 100%);
     opacity: 0;
     transition: all 0.4s ease;
   }
-
 }
 
 .toggle input:checked + label::before {
@@ -82,8 +76,7 @@ label {
 
 .toggleText {
   padding-left: 15px;
-  text-shadow: 1px 1px 0 var(--white);
   font-size: 12px;
-  color: #757575;
+  color: var(--inputTextColor);
 }
 </style>

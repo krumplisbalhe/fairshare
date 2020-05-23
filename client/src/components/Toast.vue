@@ -44,30 +44,30 @@ export default {
   align-items: center;
   top: 15px;
   box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
+  color: var(--backgroundColor);
 
   &.error{
-    background-color: var(--colorOrange);
+    background-color: var(--paprika);
   }
 
   &.success{
-    background-color: green;
+    background-color: var(--green);
   }
 
   &.info{
-    background-color: var(--lightBlue);
+    background-color: var(--classicBlue);
   }
 
   .verticalDivider {
     width: 20px;
     margin-left: 20px;
     height: 70%;
-    border-left: 1px solid var(--actionTextColor);
+    border-left: 1px solid var(--backgroundColor);
     box-shadow: inset 2px 0px 2px -2px var(--shadowColor), inset 2px 0px 2px -2px var(--shadowColor);
   }
 
   p {
     font-size: 14px;
-    color: var(--actionTextColor);
   }
 
   svg {

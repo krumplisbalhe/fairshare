@@ -13,9 +13,6 @@
 <script>
 export default {
   name: 'BottomNav',
-  props: [],
-  components: {
-  },
   data () {
 		return {
       active: 'tasks'
@@ -38,7 +35,6 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 4px 2px 12px rgba(136, 165, 191, 0.48), -4px -2px 12px #FFFFFF;
 
   .bottomTab{
     cursor: pointer;
@@ -46,7 +42,6 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
     height: 80%;
     width: 50%;
 
@@ -62,22 +57,20 @@ export default {
       width: 30%;
       text-align: center;
       font-size: 15px;
-      color: var(--grey);
-      text-shadow: 4px 2px 6px var(--shadowColor), -4px -2px 6px #FFFFFF;
+      color: var(--actionTextColor);
     }
   }
 
   hr {
     height: 4px;
-    bottom: 5px;
+    bottom: 10px;
     position: absolute;
     width: 25%;
     margin: 0;
-    background: var(--lightBlue);
+    background: var(--paprika);
     border: none;
-    transition: .3s ease-in-out;
-    box-shadow: 0 0 10px var(--lightBlue);
-
+    transition: var(--transition);
+    box-shadow: 0 0 10px var(--paprika);
   }
 }
 </style>

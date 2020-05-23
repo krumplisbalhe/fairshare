@@ -1,7 +1,7 @@
 <template>
   <div class="entering">
     <EnteringNav :class="$route.path.substr(1)"></EnteringNav>
-    <div :class="{hidden: true, swimIn: $route.path !== '/'}">
+    <div :class="{hidden: true, fadeIn: $route.path !== '/'}">
       <router-view />
     </div>
   </div>
@@ -12,10 +12,6 @@ import EnteringNav from '@/components/EnteringNav'
 
 export default {
   name: 'Entering',
-  data(){
-    return {
-    }
-  },
   components: {
     EnteringNav
   }
@@ -37,7 +33,7 @@ export default {
   transition-delay: 0.3s;
 }
 
-.swimIn {
+.fadeIn {
   opacity: 1;
 }
 </style>

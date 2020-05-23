@@ -86,7 +86,7 @@ export default {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.$root.access_token}`
       },
-      body: JSON.stringify({...item, is_done: 1, time_spent: Number(this.time), household_id: this.$root.user.household_id})
+      body: JSON.stringify({...item, is_done: 1, time_spent: Number(this.time), modified_at: Math.floor(Date.now() / 1000), household_id: this.$root.user.household_id})
     })
     .then(res => res.json())
     .then(res => {
@@ -133,7 +133,7 @@ export default {
   width:100%;
   height: 100%;
   top: 0;
-  background-color: var(--lightBlue);
+  background-color: var(--paprika);
   z-index: 3;
   display: flex;
   flex-direction: column;

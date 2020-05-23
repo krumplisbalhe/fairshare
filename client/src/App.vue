@@ -27,7 +27,5 @@ export default {
   box-sizing: border-box;
   max-width: var(--appMaxWidth);
   margin: auto;
-  border-radius: 18px;
-  // box-shadow: 4px 2px 16px var(--shadowColor), -4px -2px 16px var(--white);
 }
 </style>
