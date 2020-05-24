@@ -10,16 +10,23 @@
       <div class="listItem" v-for="item in filteredTasks" :key="item.task_id">
         <div class="listItemTopRow">
           <Close @click="$root.deleteTask(item.task_id)"></Close>
-          <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[0].user_id, item)">{{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}</div>
+          <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[0].user_id, item)">
+            Assign to {{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}
+          </div>
         </div>
         <div class="listItemMiddleRow">
-          <CategoryIcon :category="item.category" />
-          <p>{{item.task_name}}</p>
+          <div class="iconAndTitle">
+            <CategoryIcon :category="item.category" />
+            {{item.task_name}}
+            <div class="points">{{item.point}}p</div>
+          </div>
           <Done @click="openTimeWindow(item)" v-if="item.assigned_to !== 0" :class="{done: item.is_done !== 0, undone: item.is_done === 0}"></Done>
         </div>
           <div class="listItemBottomRow">
           <Edit @click="openEditTaskWindow(item)"></Edit>
-          <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[1].user_id, item)">{{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}</div>
+          <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[1].user_id, item)">
+            Assign to {{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}
+          </div>
         </div>
       </div>
     </div>
@@ -44,7 +51,7 @@ export default {
     Edit,
     Done,
     AnimatedButton,
-    CategoryIcon
+    CategoryIcon,
   },
   data(){
     return {
@@ -123,7 +130,6 @@ export default {
   display: flex;
   justify-content: space-around;
   width: 360px;
-  background-color: var(--backgroundColor);
   margin-bottom: 20px;
   height: 40px;
   position: relative;
@@ -172,11 +178,9 @@ export default {
   align-items: center;
   height: 70%;
   width: 340px;
-  margin: 20px 0px;
+  margin: 30px 0px;
   padding: 10px;
-  // border-radius: 18px;
   overflow-y: scroll;
-  // box-shadow: inset 1px 1px 1px rgba( var(--color-light), 0.4 ), inset -1px -1px 1px rgba( var(--color-shadow), 0.04 ), inset 0 0 0 2px var(--backgroundColor), inset -2px -2px 2px 2px rgba( var(--color-light), 0.4), inset -4px -4px 4px 2px rgba( var(--color-light), 0.4), -1px -1px 4px 0px rgba( var(--color-light), 0.4), -2px -2px 8px 0px rgba( var(--color-light), 0.4), inset 2px 2px 2px 2px rgba( var(--color-shadow), 0.04), inset 4px 4px 4px 2px rgba( var(--color-shadow), 0.04), 1px 1px 4px 0px rgba( var(--color-shadow), 0.04), 2px 2px 8px 0px rgba( var(--color-shadow), 0.04);
 }
 
 .listItem {
@@ -185,13 +189,13 @@ export default {
   padding: 10px;
   border-radius: 18px;
   border: var(--solidBorder);
-  box-shadow: var(--boxShadow);
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 
   .listItemTopRow, .listItemBottomRow{
+    font-size: 12px;
     display: flex;
     flex-direction: row;
     width: 95%;
@@ -199,46 +203,64 @@ export default {
     justify-content: space-between;
   }
 
-  svg{
-    width: 10px;
-    height: 10px;
-  }
-
   .listItemMiddleRow{
+    font-size: 15px;
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 80%;
-    justify-content: start;
+    justify-content: space-between;
     color: var(--inputTextColor);
 
-    p {
-      margin-left: 10px;
+    .categoryIconContainer {
+      margin-left: 5px;
+      margin-bottom: 10px;
     }
-  }
 
-    .done, .undone{
-      width: 30px;
-      height: 30px;
+    .iconAndTitle {
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 50%;
+      position: relative;
+
+      .points {
+        background-color: var(--classicBlue);
+        color: var(--backgroundColor);
+        min-width: 20px;
+        height: 20px;
+        padding: 5px;
+        border-radius: 25px;
+        position: absolute;
+        top: -15px;
+        right: 22px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     .done {
       pointer-events: none;
-    }
-
-    .done path{
-      fill: green;
+      stroke: var(--green);
     }
 
     .undone {
       cursor: pointer;
     }
-    .undone path{
-      fill: var(--actionTextColor);
-    }
+  }
 }
 
 .assignTo {
   cursor: pointer;
+  color: var(--actionTextColor);
+
+
+  svg {
+    vertical-align: middle;
+  }
 }
 </style>

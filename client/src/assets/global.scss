@@ -5,12 +5,9 @@
   --white: #FFFF;
   --actionTextColor: #81807e;
   --appMaxWidth: 400px;
-  //these two
-  --color-shadow: 97, 96, 93;
-  --color-light: 217, 214, 208;
   --classicBlue: #0F4C81;
   --paprika: #DF6741;
-  --green: #1B4D32;
+  --green: #358263;
   --boxShadow: -2px -2px 5px var(--white), 2px 2px 5px var(--shadowColor);
   --boxShadowInset: inset 2px 2px 5px var(--shadowColor), inset -2px -2px 5px var(--white);
   --transition: all 0.3s ease-in-out;
@@ -68,8 +65,8 @@ input:focus {
 }
 
 .icon{
-  height: 15px;
-  width: 15px;
+  // height: 15px;
+  // width: 15px;
 
   path{
     fill: var(--actionTextColor);

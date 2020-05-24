@@ -42,19 +42,18 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80%;
     width: 50%;
+    height: 80%;
 
     &.right.active ~ hr {
-      margin-left: 25%;
+      margin-left: calc(25% - 5px);
     }
 
     &.left.active ~ hr {
-      margin-left: -25%;
+      margin-left: calc(-25% + 5px);
     }
 
     p{
-      width: 30%;
       text-align: center;
       font-size: 15px;
       color: var(--actionTextColor);
@@ -62,10 +61,11 @@ export default {
   }
 
   hr {
-    height: 4px;
     bottom: 10px;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
     position: absolute;
-    width: 25%;
     margin: 0;
     background: var(--paprika);
     border: none;
