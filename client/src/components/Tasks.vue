@@ -65,10 +65,10 @@ export default {
         return this.$root.tasks.filter(e => e.assigned_to === 0)
       }
       if(this.active_tab === 'person1'){
-        return this.$root.tasks.filter(e => e.assigned_to === this.$root.usersOfHousehold[0].user_id)
+        return this.$root.tasks.filter(e => e.assigned_to === this.$root.usersOfHousehold[0].user_id).sort((a, b) => a.is_done - b.is_done)
       }
       if(this.active_tab === 'person2' && this.$root.usersOfHousehold[1]){
-        return this.$root.tasks.filter(e => e.assigned_to === this.$root.usersOfHousehold[1].user_id)
+        return this.$root.tasks.filter(e => e.assigned_to === this.$root.usersOfHousehold[1].user_id).sort((a, b) => a.is_done - b.is_done)
       }
       return ''
     }

@@ -71,6 +71,34 @@ tasks.post(
 tasks.get(
   jwtCheck,
   async (req, res) => {
+    const currentDate = new Date().setUTCHours(0,0,0,0)/1000
+    const oneWeekAgo = currentDate - 604800
+    const oneMonthAgo = currentDate - 2592000
+
+    await knex('tasks')
+      .where('modified_at', '<', currentDate)
+      .where('frequency', 'daily')
+      .update({
+        is_done: 0,
+        assigned_to: 0
+      })
+
+    await knex('tasks')
+    .where('modified_at', '<', oneWeekAgo)
+    .where('frequency', 'weekly')
+    .update({
+      is_done: 0,
+      assigned_to: 0
+    })
+
+    await knex('tasks')
+    .where('modified_at', '<', oneMonthAgo)
+    .where('frequency', 'monthly')
+    .update({
+      is_done: 0,
+      assigned_to: 0
+    })
+
     const householdTasks = await knex('tasks').where('household_id_fk', req.query.household_id_fk)
     return res.json({
       code: 1,

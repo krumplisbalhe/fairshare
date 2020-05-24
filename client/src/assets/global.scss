@@ -65,18 +65,13 @@ input:focus {
   box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
 }
 
-select {
-	display: block;
-  font-size: 12px;
-  min-width: 100px;
-	color: var(--actionTextColor);
-	padding: 8px;
-	border: var(--solidBorder);
-	border-radius: 25px;
-  background-color: var(--backgroundColor);
-  margin-bottom: 30px;
-  position: relative;
-  outline: 0;
+input[type=number]{
+  width: 100px;
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  opacity: 1;
+  margin-left: 5px;
 }
 
 .icon{
@@ -122,4 +117,36 @@ select {
     transition: var(--transition);
     box-shadow: 0 0 10px var(--paprika);
   }
+}
+
+select {
+  display: block;
+  font-size: 13px;
+  color: var(--actionTextColor);
+  line-height: 1.3;
+  padding: 10px;
+  min-width: 100px;
+  box-sizing: border-box;
+  margin: 0;
+  border: var(--solidBorder);
+  border-radius: 25px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--backgroundColor);
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg');
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%;
+  background-size: 10px auto;
+  margin-bottom: 30px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select:focus {
+  border: var(--solidBorder);
+  color: var(--actionTextColor);
+  outline: none;
 }

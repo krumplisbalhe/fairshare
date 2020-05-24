@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .balance {
   height: 100%;
@@ -82,6 +82,10 @@ export default {
   height: calc(100% - 63px);
   display: flex;
   align-items: center;
+}
+
+.chart-legend {
+  transform: translate(100px, 370px) !important;
 }
 
 </style>

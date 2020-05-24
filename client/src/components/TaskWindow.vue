@@ -28,7 +28,7 @@
         <button @click="saveTask">{{$root.isNewTaskWindowOpen ? 'Create task' : 'Edit task'}}</button>
       </div>
       <div v-if="$root.isAddingTimeWindowOpen" class="taskWindow">
-        <div class="formContainer">
+        <div class="formContainer addTime">
           <p>It took me</p>
           <input v-model="time" type="number" max="100" class="minuteContainer">
           <p>minutes to finish this task.</p>
@@ -157,11 +157,15 @@ export default {
 
     label {
       margin-bottom: 10px;
-      margin-left: 5px;
+      margin-left: 10px;
     }
 
     p{
       font-size: 14px;
+    }
+
+    &.addTime{
+      align-items: center;
     }
   }
 }
