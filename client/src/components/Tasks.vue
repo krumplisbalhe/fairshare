@@ -9,7 +9,7 @@
     <div class="listContainer">
       <div class="listItem" v-for="item in filteredTasks" :key="item.task_id">
         <div class="listItemTopRow">
-          <Close @click="$root.deleteTask(item.task_id)"></Close>
+          <Close :class="{invisible: item.is_done !== 0}" @click="$root.deleteTask(item.task_id)"></Close>
           <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[0].user_id, item)">
             Assign to {{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}
           </div>
@@ -23,7 +23,7 @@
           <Done @click="openTimeWindow(item)" v-if="item.assigned_to !== 0" :class="{done: item.is_done !== 0, undone: item.is_done === 0}"></Done>
         </div>
           <div class="listItemBottomRow">
-          <Edit @click="openEditTaskWindow(item)"></Edit>
+          <Edit :class="{invisible: item.is_done !== 0}" @click="openEditTaskWindow(item)"></Edit>
           <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[1].user_id, item)">
             Assign to {{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}
           </div>
@@ -126,50 +126,16 @@ export default {
   align-items: center;
 }
 
-.topNav {
-  display: flex;
-  justify-content: space-around;
-  width: 360px;
-  margin-bottom: 20px;
-  height: 40px;
-  position: relative;
+.noone.active_tab ~ hr {
+  margin-left: -33%;
+}
 
-  .tab {
-    width: 100%;
-    height: 70%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    padding: 30px 10px 0 10px;
-    transition: var(--transition);
-    cursor: pointer;
-    color: var(--actionTextColor);
-  }
+.person1.active_tab ~ hr {
+  margin-left: 0;
+}
 
-  .noone.active_tab ~ hr {
-    margin-left: -33%;
-  }
-
-  .person1.active_tab ~ hr {
-    margin-left: 0;
-  }
-
-  .person2.active_tab ~ hr {
-    margin-left: 33%;
-  }
-
-  hr {
-    height: 5px;
-    width: 5px;
-    border-radius: 50%;
-    top: 60px;
-    position: absolute;
-    margin: 0;
-    background: var(--paprika);
-    border: none;
-    transition: var(--transition);
-    box-shadow: 0 0 10px var(--paprika);
-  }
+.person2.active_tab ~ hr {
+  margin-left: 33%;
 }
 
 .listContainer {
@@ -262,5 +228,10 @@ export default {
   svg {
     vertical-align: middle;
   }
+}
+
+.invisible{
+  opacity: 0;
+  pointer-events: none;
 }
 </style>

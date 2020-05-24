@@ -32,7 +32,6 @@ export default {
   width: 360px;
   height: 50px;
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
   align-items: center;
 

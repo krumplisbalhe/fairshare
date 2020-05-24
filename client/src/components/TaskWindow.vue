@@ -28,11 +28,13 @@
         </select>
         <button @click="saveTask">{{$root.isNewTaskWindowOpen ? 'Create task' : 'Edit task'}}</button>
       </div>
-      <div v-if="$root.isAddingTimeWindowOpen">
-        It took me
-        <input v-model="time" type="number" placeholder="Time">
-        minutes
-        <button @click="moveItemToDone(editingTask)"></button>
+      <div v-if="$root.isAddingTimeWindowOpen" class="taskWindow">
+        <div class="formContainer">
+          <p>It took me</p>
+          <input v-model="time" type="number" max="100" class="minuteContainer">
+          <p>minutes to finish this task.</p>
+          <button @click="moveItemToDone(editingTask)">Done</button>
+        </div>
       </div>
     </div>
   <!-- </transition> -->
@@ -133,7 +135,7 @@ export default {
   width:100%;
   height: 100%;
   top: 0;
-  background-color: var(--paprika);
+  background-color: var(--backgroundColor);
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -146,10 +148,26 @@ export default {
 
   .formContainer{
     padding: 20px;
-    padding-top: 3vh;
+    padding-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--inputTextColor);
+    font-size: 12px;
 
     button{
       margin-top: 15px;
+      background-color: var(--classicBlue);
+      color: var(--backgroundColor);
+    }
+
+    label {
+      margin-bottom: 10px;
+      margin-left: 5px;
+    }
+
+    p{
+      font-size: 14px;
     }
   }
 }

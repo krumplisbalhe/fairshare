@@ -33,6 +33,7 @@ button, input {
   outline: 0;
   border-radius: 25px;
   background-color: var(--backgroundColor);
+  outline: 0;
 }
 
 button {
@@ -64,10 +65,21 @@ input:focus {
   box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
 }
 
-.icon{
-  // height: 15px;
-  // width: 15px;
+select {
+	display: block;
+  font-size: 12px;
+  min-width: 100px;
+	color: var(--actionTextColor);
+	padding: 8px;
+	border: var(--solidBorder);
+	border-radius: 25px;
+  background-color: var(--backgroundColor);
+  margin-bottom: 30px;
+  position: relative;
+  outline: 0;
+}
 
+.icon{
   path{
     fill: var(--actionTextColor);
     stroke: var(--actionTextColor);
@@ -76,4 +88,38 @@ input:focus {
 
 .iconButton {
   cursor: pointer;
+}
+
+.topNav {
+  display: flex;
+  justify-content: space-around;
+  width: 360px;
+  margin-bottom: 20px;
+  height: 40px;
+  position: relative;
+
+  .tab {
+    width: 100%;
+    height: 70%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 30px 10px 0 10px;
+    transition: var(--transition);
+    cursor: pointer;
+    color: var(--actionTextColor);
+  }
+
+  hr {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    top: 60px;
+    position: absolute;
+    margin: 0;
+    background: var(--paprika);
+    border: none;
+    transition: var(--transition);
+    box-shadow: 0 0 10px var(--paprika);
+  }
 }
