@@ -1,6 +1,6 @@
 <template>
-  <div class="animatedButton">
-    <button @click="openNewTaskWindow" class="addTaskButton">
+  <div class="animatedButton" :class="{closingMode: $root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen}">
+    <button @click="handleTaskWindow" class="addTaskButton">
       <Plus></Plus>
     </button>
     <span class="movingCircle1"></span>
@@ -17,8 +17,14 @@ export default {
     Plus
   },
   methods: {
-    openNewTaskWindow(){
-      this.$root.isNewTaskWindowOpen = true
+    handleTaskWindow(){
+      console.log('banana')
+      if(this.$root.isNewTaskWindowOpen || this.$root.isEditTaskWindowOpen) {
+        this.$root.isNewTaskWindowOpen = false
+        this.$root.isEditTaskWindowOpen = false
+      }else {
+        this.$root.isNewTaskWindowOpen = true
+      }
     }
   }
 }
@@ -34,10 +40,18 @@ export default {
   display: grid;
   justify-items: center;
   align-items: center;
+
+  &.closingMode {
+    z-index: 3;
+
+    .addTaskButton {
+      z-index: 4;
+    }
+  }
 }
 
 .addTaskButton {
-  z-index: 3;
+  z-index: 2;
   box-shadow: none;
   padding: 5px;
   border: none;
@@ -87,4 +101,7 @@ export default {
   }
 }
 
+.animatedButton.closingMode .addTaskButton .icon {
+  transform: rotate(45deg);
+}
 </style>

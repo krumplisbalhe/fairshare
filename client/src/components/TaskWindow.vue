@@ -1,33 +1,32 @@
 <template>
   <transition name="taskWindowAnimation" appear>
     <div :class="{newTaskWindow: $root.isNewTaskWindowOpen, editTaskWindow: $root.isEditTaskWindowOpen}" class="taskWindow">
-      <Close v-if="$root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen"  @click="closeTaskWindow"></Close>
-        <div v-if="$root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen" class="formContainer">
-          <input v-model="dynamicValues.task_name" type="text" placeholder="Task name">
-          <input v-model="dynamicValues.point" type="text" placeholder="Point">
-          <label for="Category">Category</label>
-          <select v-model="dynamicValues.category" type="text" name="Category">
-            <option value=bathroom>Bathroom</option>
-            <option value="livingroom">Livingroom</option>
-            <option value="kitchen">Kitchen</option>
-            <option value="bedroom">Bedroom</option>
-            <option value="laundry">Laundry</option>
-            <option value="cleaning">Cleaning</option>
-            <option value="dishes">Dishes</option>
-            <option value="floor">Floor</option>
-            <option value="trash">Trash</option>
-            <option value="outside">Outside</option>
-            <option value="other">Other</option>
-          </select>
-          <label for="Frequency">Frequency</label>
-          <select v-model="dynamicValues.frequency" type="text" name="Frequency">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="once">Only once</option>
-          </select>
-          <button @click="saveTask">{{$root.isNewTaskWindowOpen ? 'Create task' : 'Edit task'}}</button>
-        </div>
+      <div v-if="$root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen" class="formContainer">
+        <input v-model="dynamicValues.task_name" type="text" placeholder="Task name">
+        <input v-model="dynamicValues.point" type="text" placeholder="Point">
+        <label for="Category">Category</label>
+        <select v-model="dynamicValues.category" type="text" name="Category">
+          <option value=bathroom>Bathroom</option>
+          <option value="livingroom">Livingroom</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="bedroom">Bedroom</option>
+          <option value="laundry">Laundry</option>
+          <option value="cleaning">Cleaning</option>
+          <option value="dishes">Dishes</option>
+          <option value="floor">Floor</option>
+          <option value="trash">Trash</option>
+          <option value="outside">Outside</option>
+          <option value="other">Other</option>
+        </select>
+        <label for="Frequency">Frequency</label>
+        <select v-model="dynamicValues.frequency" type="text" name="Frequency">
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="once">Only once</option>
+        </select>
+        <button @click="saveTask">{{$root.isNewTaskWindowOpen ? 'Create task' : 'Edit task'}}</button>
+      </div>
       <div v-if="$root.isAddingTimeWindowOpen" class="taskWindow">
         <div class="formContainer">
           <p>It took me</p>
@@ -41,14 +40,9 @@
 </template>
 
 <script>
-import Close from '@/assets/icons/close.svg'
-
 export default {
   name: 'TaskWindow',
   props: ['editingTask'],
-  components: {
-    Close
-  },
   methods:{
     closeTaskWindow(){
       this.$root.isNewTaskWindowOpen = false,
@@ -136,7 +130,7 @@ export default {
   height: 100%;
   top: 0;
   background-color: var(--backgroundColor);
-  z-index: 3;
+  z-index: 2;
   display: flex;
   flex-direction: column;
 
@@ -148,7 +142,7 @@ export default {
 
   .formContainer{
     padding: 20px;
-    padding-top: 10vh;
+    padding-top: 13vh;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
