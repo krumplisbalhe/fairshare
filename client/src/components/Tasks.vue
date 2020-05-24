@@ -6,7 +6,7 @@
       <div @click="setActiveTab('person2')" class="tab person2" :class="active_tab === 'person2' ? 'active_tab' : ''">{{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}</div>
       <hr />
     </div>
-    <div class="listContainer">
+    <transition-group class="listContainer" name="taskItemsAnimation" tag="div" mode="out-in">
       <div class="listItem" v-for="item in filteredTasks" :key="item.task_id">
         <div class="listItemTopRow">
           <Close :class="{invisible: item.is_done !== 0}" @click="$root.deleteTask(item.task_id)"></Close>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </transition-group>
     <AnimatedButton />
     <TaskWindow :editingTask="editingTask" v-if="$root.isNewTaskWindowOpen === true || $root.isEditTaskWindowOpen === true || $root.isAddingTimeWindowOpen" />
   </div>
@@ -147,6 +147,7 @@ export default {
   margin: 30px 0px;
   padding: 10px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .listItem {
@@ -233,5 +234,24 @@ export default {
 .invisible{
   opacity: 0;
   pointer-events: none;
+}
+
+.taskItemsAnimation-enter-active, .taskItemsAnimation-leave-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.3s;
+  transition-delay: 0.3s;
+}
+
+.taskItemsAnimation-enter{
+  opacity: 0;
+  transform: translateX(-40vw);
+  transition: all 0.3s;
+}
+
+.taskItemsAnimation-leave-to {
+  opacity: 0;
+  transform: translateX(40vw);
+  transition: all 0.3s;
 }
 </style>
