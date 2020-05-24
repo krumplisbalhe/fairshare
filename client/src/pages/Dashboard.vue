@@ -51,20 +51,20 @@ export default {
 <style lang="scss">
 .dashboard {
   position: relative;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .brandWavesArea {
-    height: 10%;
+    height: 10vh;
   }
 
   .waveContainer{
     & .waves {
       height: 5vh;
-      top: 20px;
+      top: 25px;
       min-height: auto;
     }
 
@@ -74,7 +74,7 @@ export default {
   }
 
   .panel {
-    height: 80%;
+    height: calc(90vh - (54px + 50px));
     width: 100%;
   }
 

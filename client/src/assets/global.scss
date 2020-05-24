@@ -3,7 +3,7 @@
   --shadowColor: #D9D6D0;
   --inputTextColor: #757575;
   --white: #FFFF;
-  --actionTextColor: #61605d;
+  --actionTextColor: #81807e;
   --appMaxWidth: 400px;
   //these two
   --color-shadow: 97, 96, 93;
@@ -70,8 +70,13 @@ input:focus {
 .icon{
   height: 15px;
   width: 15px;
+
+  path{
+    fill: var(--actionTextColor);
+    stroke: var(--actionTextColor);
+  }
 }
 
-.icon path{
-  fill: var(--actionTextColor);
+.iconButton {
+  cursor: pointer;
 }

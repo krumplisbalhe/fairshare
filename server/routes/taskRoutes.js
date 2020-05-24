@@ -165,6 +165,7 @@ tasks.delete(
     })
 })
 
+// MOVE TASK TO DONE AND ADD POINTS, TIME TO USER
 router.put('/api/task-done',
   jwtCheck,
   [

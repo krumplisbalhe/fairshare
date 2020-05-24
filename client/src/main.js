@@ -33,8 +33,9 @@ new Vue({
 			})
 			.then(res => res.json())
 			.then(res => {
-        console.log(res)
-				this.tasks = res.response
+        if(res.code === 1){
+          this.tasks = res.response
+        }
 			}).catch(error => {
         console.log(error)
         this.toast = {
@@ -57,8 +58,9 @@ new Vue({
 			})
 			.then(res => res.json())
 			.then(res => {
-        console.log(res)
-        this.getTasks()
+        if(res.code === 1){
+          this.getTasks()
+        }
 			}).catch(error => {
         console.log(error)
         this.toast = {
@@ -76,14 +78,17 @@ new Vue({
       })
       .then(res => res.json())
       .then(res => {
-        console.log(res.response)
-        this.$root.usersOfHousehold = res.response
+        if(res.code === 1){
+          this.$root.usersOfHousehold = res.response
+        }
       }).catch(error => {
         console.log(error)
         this.$root.toast = {
             message: 'Problem with getting data.',
             icon: "error"
           }
+        this.$router.push('/')
+        location.reload()
       })
     },
   },
