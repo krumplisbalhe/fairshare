@@ -45,8 +45,9 @@ export default {
         console.log(res)
           if(res.code == 1){
             if(!this.have_id){
+              navigator.clipboard.writeText(res.household_id)
               this.$root.toast = {
-              message: `Your partner can sign up with this household ID: ${res.household_id}`,
+              message: `Household ID has been copied to clipboard, send it to your partner to join the household`,
               icon: "info"
               }
             }
