@@ -152,6 +152,7 @@ tasks.put(
       is_done: req.body.is_done,
       assigned_to: req.body.assigned_to,
       frequency: req.body.frequency,
+      modified_at: req.body.modified_at
     })
 
     const updatedTask = await knex('tasks').where('task_id', req.body.task_id)
