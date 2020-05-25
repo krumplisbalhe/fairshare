@@ -91,7 +91,8 @@ export default {
         body: JSON.stringify({
           ...task,
           assigned_to: user_id,
-          household_id: this.$root.user.household_id
+          household_id: this.$root.user.household_id,
+          modified_at: Math.floor(Date.now() / 1000)
         })
       })
       .then(res => res.json())
