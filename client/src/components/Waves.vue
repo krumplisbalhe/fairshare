@@ -33,9 +33,8 @@ export default {
     position:relative;
     width: 100%;
     height: 50vh;
-    top: 15vh;
+    top: 10vh;
     margin-bottom:-7px;
-    min-height:100px;
   }
 
   .crossing {
