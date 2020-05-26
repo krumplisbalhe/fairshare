@@ -1,7 +1,12 @@
 <template>
   <div class="toggleWrapper">
     <div class="toggle">
-      <input id="toggleInput" type="checkbox" :value="value" @input="$emit('input', !value)">
+      <input
+        id="toggleInput"
+        type="checkbox"
+        :value="value"
+        @input="$emit('input', !value)"
+      />
       <label for="toggleInput"></label>
     </div>
     <div class="toggleText">
@@ -13,7 +18,7 @@
 <script>
 export default {
   name: 'Toggle',
-  props: ['value', 'toggleText'],
+  props: ['value', 'toggleText']
 }
 </script>
 
@@ -28,7 +33,7 @@ export default {
   width: 48px;
 
   input {
-  display: none;
+    display: none;
   }
 }
 
@@ -56,7 +61,7 @@ label {
   }
 
   &::before {
-    content: '';
+    content: "";
     width: 100%;
     height: 100%;
     border-radius: inherit;

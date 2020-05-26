@@ -1,12 +1,12 @@
 :root {
-  --backgroundColor: #FFFCF6;
-  --shadowColor: #D9D6D0;
+  --backgroundColor: #fffcf6;
+  --shadowColor: #d9d6d0;
   --inputTextColor: #757575;
-  --white: #FFFF;
+  --white: #ffff;
   --actionTextColor: #81807e;
   --appMaxWidth: 400px;
-  --classicBlue: #0F4C81;
-  --paprika: #DF6741;
+  --classicBlue: #0f4c81;
+  --paprika: #df6741;
   --green: #358263;
   --boxShadow: -2px -2px 5px var(--white), 2px 2px 5px var(--shadowColor);
   --boxShadowInset: inset 2px 2px 5px var(--shadowColor), inset -2px -2px 5px var(--white);
@@ -21,19 +21,23 @@
 body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--backgroundColor);
-  margin: 0px;
+  margin: 0;
 }
 
-input, textarea, pre, select, button {
+input,
+textarea,
+pre,
+select,
+button {
   font-family: 'Roboto', sans-serif;
 }
 
-button, input {
+button,
+input {
   border: 0;
   outline: 0;
   border-radius: 25px;
   background-color: var(--backgroundColor);
-  outline: 0;
 }
 
 button {
@@ -65,18 +69,19 @@ input:focus {
   box-shadow: inset 1px 1px 2px var(--shadowColor), inset -1px -1px 2px var(--white);
 }
 
-input[type=number]{
+input[type=number] {
   width: 100px;
   text-align: center;
 }
 
-input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
   margin-left: 5px;
 }
 
-.icon{
-  path{
+.icon {
+  path {
     fill: var(--actionTextColor);
     stroke: var(--actionTextColor);
   }
@@ -137,7 +142,7 @@ select {
   background-color: var(--backgroundColor);
   background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg');
   background-repeat: no-repeat, repeat;
-  background-position: right .7em top 50%;
+  background-position: right 0.7em top 50%;
   background-size: 10px auto;
   margin-bottom: 30px;
 }

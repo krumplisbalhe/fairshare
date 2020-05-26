@@ -1,41 +1,109 @@
 <template>
   <div class="tasks">
     <div class="topNav">
-      <div @click="setActiveTab('noone')" class="tab noone" :class="active_tab === 'noone' ? 'active_tab' : ''">Unassigned</div>
-      <div @click="setActiveTab('person1')" class="tab person1" :class="active_tab === 'person1' ? 'active_tab' : ''">{{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}</div>
-      <div @click="setActiveTab('person2')" class="tab person2" :class="active_tab === 'person2' ? 'active_tab' : ''">{{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}</div>
+      <div
+        @click="setActiveTab('noone')"
+        class="tab noone"
+        :class="active_tab === 'noone' ? 'active_tab' : ''"
+      >
+        Unassigned
+      </div>
+      <div
+        @click="setActiveTab('person1')"
+        class="tab person1"
+        :class="active_tab === 'person1' ? 'active_tab' : ''"
+      >
+        {{
+          $root.usersOfHousehold[0]
+            ? $root.usersOfHousehold[0].user_name
+            : "User 1"
+        }}
+      </div>
+      <div
+        @click="setActiveTab('person2')"
+        class="tab person2"
+        :class="active_tab === 'person2' ? 'active_tab' : ''"
+      >
+        {{
+          $root.usersOfHousehold[1]
+            ? $root.usersOfHousehold[1].user_name
+            : "User 2"
+        }}
+      </div>
       <hr />
     </div>
-    <transition-group class="listContainer" name="taskItemsAnimation" tag="div" mode="out-in">
+    <transition-group
+      class="listContainer"
+      name="taskItemsAnimation"
+      tag="div"
+      mode="out-in"
+    >
       <div v-if="filteredTasks.length === 0" class="emptyState" :key="'emtpy'">
         <EmptyState />
-        <p>No household chores to show. Start adding tasks with the button below</p>
+        <p>
+          No household chores to show. Start adding tasks with the button below
+        </p>
       </div>
       <div class="listItem" v-for="item in filteredTasks" :key="item.task_id">
         <div class="listItemTopRow">
-          <Close :class="{invisible: item.is_done !== 0}" @click="$root.deleteTask(item.task_id)"></Close>
-          <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[0].user_id, item)">
-            Assign to {{$root.usersOfHousehold[0] ? $root.usersOfHousehold[0].user_name : 'User 1'}}
+          <Close
+            :class="{ invisible: item.is_done !== 0 }"
+            @click="$root.deleteTask(item.task_id)"
+          ></Close>
+          <div
+            class="assignTo"
+            v-if="item.assigned_to === 0"
+            @click="assignTaskToUser($root.usersOfHousehold[0].user_id, item)"
+          >
+            Assign to
+            {{
+              $root.usersOfHousehold[0]
+                ? $root.usersOfHousehold[0].user_name
+                : "User 1"
+            }}
           </div>
         </div>
         <div class="listItemMiddleRow">
           <div class="iconAndTitle">
             <CategoryIcon :category="item.category" />
-            {{item.task_name}}
-            <div class="points">{{item.point}}p</div>
+            {{ item.task_name }}
+            <div class="points">{{ item.point }}p</div>
           </div>
-          <Done @click="openTimeWindow(item)" v-if="item.assigned_to !== 0" :class="{done: item.is_done !== 0, undone: item.is_done === 0}"></Done>
+          <Done
+            @click="openTimeWindow(item)"
+            v-if="item.assigned_to !== 0"
+            :class="{ done: item.is_done !== 0, undone: item.is_done === 0 }"
+          ></Done>
         </div>
-          <div class="listItemBottomRow">
-          <Edit :class="{invisible: item.is_done !== 0}" @click="openEditTaskWindow(item)"></Edit>
-          <div class="assignTo" v-if="item.assigned_to ===0" @click="assignTaskToUser($root.usersOfHousehold[1].user_id, item)">
-            Assign to {{$root.usersOfHousehold[1] ? $root.usersOfHousehold[1].user_name : 'User 2'}}
+        <div class="listItemBottomRow">
+          <Edit
+            :class="{ invisible: item.is_done !== 0 }"
+            @click="openEditTaskWindow(item)"
+          ></Edit>
+          <div
+            class="assignTo"
+            v-if="item.assigned_to === 0"
+            @click="assignTaskToUser($root.usersOfHousehold[1].user_id, item)"
+          >
+            Assign to
+            {{
+              $root.usersOfHousehold[1]
+                ? $root.usersOfHousehold[1].user_name
+                : "User 2"
+            }}
           </div>
         </div>
       </div>
     </transition-group>
     <AnimatedButton />
-    <TaskWindow :editingTask="editingTask" v-if="$root.isNewTaskWindowOpen === true || $root.isEditTaskWindowOpen === true || $root.isAddingTimeWindowOpen" />
+    <TaskWindow
+      :editingTask="editingTask"
+      v-if="
+        $root.isNewTaskWindowOpen === true ||
+          $root.isEditTaskWindowOpen === true ||
+          $root.isAddingTimeWindowOpen
+      "
+    />
   </div>
 </template>
 
@@ -59,40 +127,44 @@ export default {
     CategoryIcon,
     EmptyState
   },
-  data(){
+  data() {
     return {
       active_tab: 'noone',
       editingTask: null
     }
   },
-  computed:{
-    filteredTasks(){
-      if(this.active_tab === 'noone'){
+  computed: {
+    filteredTasks() {
+      if (this.active_tab === 'noone') {
         return this.$root.tasks.filter(e => e.assigned_to === 0)
       }
-      if(this.active_tab === 'person1'){
-        return this.$root.tasks.filter(e => e.assigned_to === this.$root.usersOfHousehold[0].user_id).sort((a, b) => a.is_done - b.is_done)
+      if (this.active_tab === 'person1') {
+        return this.$root.tasks
+          .filter(e => e.assigned_to === this.$root.usersOfHousehold[0].user_id)
+          .sort((a, b) => a.is_done - b.is_done)
       }
-      if(this.active_tab === 'person2' && this.$root.usersOfHousehold[1]){
-        return this.$root.tasks.filter(e => e.assigned_to === this.$root.usersOfHousehold[1].user_id).sort((a, b) => a.is_done - b.is_done)
+      if (this.active_tab === 'person2' && this.$root.usersOfHousehold[1]) {
+        return this.$root.tasks
+          .filter(e => e.assigned_to === this.$root.usersOfHousehold[1].user_id)
+          .sort((a, b) => a.is_done - b.is_done)
       }
       return ''
     }
   },
   methods: {
-    setActiveTab(nameOfTab){
+    setActiveTab(nameOfTab) {
       this.active_tab = nameOfTab
     },
-    openEditTaskWindow(item){
+    openEditTaskWindow(item) {
       this.$root.isEditTaskWindowOpen = true
       this.editingTask = item
     },
-    assignTaskToUser(user_id, task){
+    assignTaskToUser(user_id, task) {
       fetch('/api/tasks', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.$root.access_token}`
+          Authorization: `Bearer ${this.$root.access_token}`
         },
         body: JSON.stringify({
           ...task,
@@ -101,23 +173,23 @@ export default {
           modified_at: Math.floor(Date.now() / 1000)
         })
       })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res)
-          if(res.code === 1){
+        .then(res => res.json())
+        .then(res => {
+          if (res.code === 1) {
             this.$root.getTasks()
           }
-          if(res.code == 0){
+          if (res.code == 0) {
             this.$root.toast = {
               message: res.error[0].msg,
-              icon: "error"
+              icon: 'error'
             }
           }
-        }).catch(error => {
+        })
+        .catch(error => {
           console.log(error)
         })
     },
-    openTimeWindow(item){
+    openTimeWindow(item) {
       this.$root.isAddingTimeWindowOpen = true
       this.editingTask = item
     }
@@ -151,7 +223,7 @@ export default {
   align-items: center;
   height: 70%;
   width: 340px;
-  margin: 30px 0px;
+  margin: 30px 0;
   padding: 10px;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -168,7 +240,8 @@ export default {
   align-items: center;
   position: relative;
 
-  .listItemTopRow, .listItemBottomRow{
+  .listItemTopRow,
+  .listItemBottomRow {
     font-size: 12px;
     display: flex;
     flex-direction: row;
@@ -177,7 +250,7 @@ export default {
     justify-content: space-between;
   }
 
-  .listItemMiddleRow{
+  .listItemMiddleRow {
     font-size: 15px;
     display: flex;
     flex-direction: row;
@@ -232,29 +305,29 @@ export default {
   cursor: pointer;
   color: var(--actionTextColor);
 
-
   svg {
     vertical-align: middle;
   }
 }
 
-.emptyState{
+.emptyState {
   display: flex;
   align-items: center;
   flex-direction: column;
   height: 100%;
   justify-content: center;
 
-  svg{
+  svg {
     width: 120px;
     height: 120px;
-    path{
-      fill: #D6D6D6;
+
+    path {
+      fill: #d6d6d6;
     }
   }
 
-  p{
-    color: #D6D6D6;
+  p {
+    color: #d6d6d6;
     font-size: 15px;
     text-align: center;
     width: 70%;
@@ -263,19 +336,20 @@ export default {
   }
 }
 
-.invisible{
+.invisible {
   opacity: 0;
   pointer-events: none;
 }
 
-.taskItemsAnimation-enter-active, .taskItemsAnimation-leave-active {
+.taskItemsAnimation-enter-active,
+.taskItemsAnimation-leave-active {
   opacity: 1;
   transform: translateX(0);
   transition: all 0.3s;
   transition-delay: 0.3s;
 }
 
-.taskItemsAnimation-enter{
+.taskItemsAnimation-enter {
   opacity: 0;
   transform: translateX(-40vw);
   transition: all 0.3s;

@@ -1,10 +1,19 @@
 <template>
   <div class="signup">
-    <input v-model="user_name" type="text" placeholder="Name">
-    <input v-model="email" type="text" placeholder="E-mail">
-    <input v-model="password" type="password" placeholder="Password">
-    <Toggle :value="have_id" @input="val => have_id = val" :toggleText="'Join a household'" />
-    <input v-model="household_id" v-if="have_id" type="text" placeholder="Household ID">
+    <input v-model="user_name" type="text" placeholder="Name" />
+    <input v-model="email" type="text" placeholder="E-mail" />
+    <input v-model="password" type="password" placeholder="Password" />
+    <Toggle
+      :value="have_id"
+      @input="val => (have_id = val)"
+      :toggleText="'Join a household'"
+    />
+    <input
+      v-model="household_id"
+      v-if="have_id"
+      type="text"
+      placeholder="Household ID"
+    />
     <button @click="signUpUser">Sign up</button>
   </div>
 </template>
@@ -17,17 +26,17 @@ export default {
   components: {
     Toggle
   },
-  data () {
-		return {
+  data() {
+    return {
       have_id: false,
-      user_name:'',
-      email:'',
-      password:'',
+      user_name: '',
+      email: '',
+      password: '',
       household_id: ''
-		}
+    }
   },
   methods: {
-    signUpUser(){
+    signUpUser() {
       fetch(this.have_id ? '/api/signup-join' : '/api/signup-create', {
         method: 'POST',
         headers: {
@@ -40,32 +49,32 @@ export default {
           household_id: this.household_id
         })
       })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res)
-          if(res.code == 1){
-            if(!this.have_id){
+        .then(res => res.json())
+        .then(res => {
+          if (res.code == 1) {
+            if (!this.have_id) {
               navigator.clipboard.writeText(res.household_id)
               this.$root.toast = {
-              message: `Household ID has been copied to clipboard, send it to your partner to join the household`,
-              icon: "info"
+                message:
+                  'Household ID has been copied to clipboard, send it to your partner to join the household',
+                icon: 'info'
               }
               this.$root.usersOfHousehold = res.response
-            }
-            else {
+            } else {
               this.$root.toast = {
-              message: 'Sign up successful',
-              icon: "success"
+                message: 'Sign up successful',
+                icon: 'success'
               }
             }
           }
-          if(res.code == 0){
+          if (res.code == 0) {
             this.$root.toast = {
               message: res.error[0].msg,
-              icon: "error"
+              icon: 'error'
             }
           }
-        }).catch(error => {
+        })
+        .catch(error => {
           console.log(error)
         })
     }
@@ -74,13 +83,13 @@ export default {
 </script>
 
 <style lang="scss">
-.fadeIn{
+.fadeIn {
   .signup {
     padding: 20px;
   }
 }
 
-.toggle{
+.toggle {
   margin-left: 5px;
 }
 </style>

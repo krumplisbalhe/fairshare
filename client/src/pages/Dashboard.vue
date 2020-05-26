@@ -3,9 +3,15 @@
     <div v-if="$root.usersOfHousehold.length === 1" class="missingHousehold">
       <AddUser />
       <p>Please sign up your household partner before starting using the app</p>
-      <p class="smallerText">Use the household ID: {{$root.usersOfHousehold[0].household_id}}</p>
+      <p class="smallerText">
+        Use the household ID: {{ $root.usersOfHousehold[0].household_id }}
+      </p>
     </div>
-    <button class="signOut" :class="{layerUp: isHouseholdMissing}" @click="signOut()">
+    <button
+      class="signOut"
+      :class="{ layerUp: $root.usersOfHousehold.length === 1 }"
+      @click="signOut()"
+    >
       Sign out
     </button>
     <div class="brandWavesArea">
@@ -15,7 +21,10 @@
       <Tasks v-if="activeNav === 'tasks'"></Tasks>
       <Balance v-if="activeNav === 'balance'"></Balance>
     </div>
-    <BottomNav :class="{disabled: $root.usersOfHousehold.length === 1}" @setNav="val => activeNav = val" />
+    <BottomNav
+      :class="{ disabled: $root.usersOfHousehold.length === 1 }"
+      @setNav="val => (activeNav = val)"
+    />
   </div>
 </template>
 
@@ -35,19 +44,18 @@ export default {
     Waves,
     AddUser
   },
-  created(){
-    this.$root.getTasks(),
-    this.$root.getUsersOfHousehold()
+  created() {
+    this.$root.getTasks(), this.$root.getUsersOfHousehold()
   },
-  data(){
+  data() {
     return {
       activeNav: 'tasks'
     }
   },
-  methods:{
-    signOut(){
-      localStorage.setItem("user_data", '')
-      localStorage.setItem("access_token", '')
+  methods: {
+    signOut() {
+      localStorage.setItem('user_data', '')
+      localStorage.setItem('access_token', '')
       this.$router.push('/')
       location.reload()
     }
@@ -68,7 +76,7 @@ export default {
     height: 10vh;
   }
 
-  .waveContainer{
+  .waveContainer {
     & .waves {
       height: 5vh;
       top: 25px;
@@ -90,7 +98,7 @@ export default {
     font-weight: 500;
     align-self: flex-end;
 
-    &.layerUp{
+    &.layerUp {
       z-index: 5;
     }
   }
@@ -101,13 +109,13 @@ export default {
   }
 }
 
-.missingHousehold{
+.missingHousehold {
   position: absolute;
   background-color: black;
   opacity: 0.8;
-  top: 0px;
-  left: 0px;
-  height:100%;
+  top: 0;
+  left: 0;
+  height: 100%;
   width: 100%;
   z-index: 4;
   display: flex;
@@ -115,25 +123,27 @@ export default {
   align-items: center;
   justify-content: center;
 
-  svg{
+  svg {
     width: 120px;
     height: 120px;
     margin-bottom: 22px;
-    path{
+
+    path {
       fill: var(--paprika);
       stroke: black;
       stroke-width: 5px;
     }
   }
 
-  p{
+  p {
     color: var(--backgroundColor);
     width: 70%;
     text-align: center;
     font-size: 19px;
     line-height: 1.2;
   }
-  .smallerText{
+
+  .smallerText {
     color: var(--paprika);
   }
 }

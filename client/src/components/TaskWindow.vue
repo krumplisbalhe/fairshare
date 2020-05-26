@@ -1,12 +1,25 @@
 <template>
   <transition name="taskWindowAnimation" appear>
-    <div :class="{newTaskWindow: $root.isNewTaskWindowOpen, editTaskWindow: $root.isEditTaskWindowOpen}" class="taskWindow">
-      <div v-if="$root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen" class="formContainer">
-        <input v-model="dynamicValues.task_name" type="text" placeholder="Task name">
-        <input v-model="dynamicValues.point" type="text" placeholder="Point">
+    <div
+      :class="{
+        newTaskWindow: $root.isNewTaskWindowOpen,
+        editTaskWindow: $root.isEditTaskWindowOpen
+      }"
+      class="taskWindow"
+    >
+      <div
+        v-if="$root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen"
+        class="formContainer"
+      >
+        <input
+          v-model="dynamicValues.task_name"
+          type="text"
+          placeholder="Task name"
+        />
+        <input v-model="dynamicValues.point" type="text" placeholder="Point" />
         <label for="Category">Category</label>
         <select v-model="dynamicValues.category" type="text" name="Category">
-          <option value=bathroom>Bathroom</option>
+          <option value="bathroom">Bathroom</option>
           <option value="livingroom">Livingroom</option>
           <option value="kitchen">Kitchen</option>
           <option value="bedroom">Bedroom</option>
@@ -25,12 +38,19 @@
           <option value="monthly">Monthly</option>
           <option value="once">Only once</option>
         </select>
-        <button @click="saveTask">{{$root.isNewTaskWindowOpen ? 'Create task' : 'Edit task'}}</button>
+        <button @click="saveTask">
+          {{ $root.isNewTaskWindowOpen ? "Create task" : "Edit task" }}
+        </button>
       </div>
       <div v-if="$root.isAddingTimeWindowOpen" class="taskWindow">
         <div class="formContainer addTime">
           <p>It took me</p>
-          <input v-model="time" type="number" max="100" class="minuteContainer">
+          <input
+            v-model="time"
+            type="number"
+            max="100"
+            class="minuteContainer"
+          />
           <p>minutes to finish this task.</p>
           <button @click="moveItemToDone(editingTask)">Done</button>
         </div>
@@ -43,70 +63,79 @@
 export default {
   name: 'TaskWindow',
   props: ['editingTask'],
-  methods:{
-    closeTaskWindow(){
-      this.$root.isNewTaskWindowOpen = false,
-      this.$root.isEditTaskWindowOpen = false
+  methods: {
+    closeTaskWindow() {
+      (this.$root.isNewTaskWindowOpen = false),
+      (this.$root.isEditTaskWindowOpen = false)
     },
-    saveTask(){
-    fetch('/api/tasks', {
-      method: this.$root.isEditTaskWindowOpen ? 'PUT' :'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.$root.access_token}`
-      },
-      body: JSON.stringify({...this.dynamicValues, household_id: this.$root.user.household_id})
-    })
-    .then(res => res.json())
-    .then(res => {
-      console.log(res)
-        if(res.code == 1){
-          this.$root.getTasks()
-          this.$root.isNewTaskWindowOpen = false
-          this.$root.isEditTaskWindowOpen = false
-        }
-        if(res.code == 0){
-          this.$root.toast = {
-            message: res.error[0].msg,
-            icon: "error"
-          }
-        }
-      }).catch(error => {
-        console.log(error)
+    saveTask() {
+      fetch('/api/tasks', {
+        method: this.$root.isEditTaskWindowOpen ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.$root.access_token}`
+        },
+        body: JSON.stringify({
+          ...this.dynamicValues,
+          household_id: this.$root.user.household_id
+        })
       })
+        .then(res => res.json())
+        .then(res => {
+          if (res.code == 1) {
+            this.$root.getTasks()
+            this.$root.isNewTaskWindowOpen = false
+            this.$root.isEditTaskWindowOpen = false
+          }
+          if (res.code == 0) {
+            this.$root.toast = {
+              message: res.error[0].msg,
+              icon: 'error'
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
-    moveItemToDone(item){
+    moveItemToDone(item) {
       fetch('/api/task-done', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.$root.access_token}`
-      },
-      body: JSON.stringify({...item, is_done: 1, time_spent: Number(this.time), modified_at: Math.floor(Date.now() / 1000), household_id: this.$root.user.household_id})
-    })
-    .then(res => res.json())
-    .then(res => {
-      console.log(res)
-        if(res.code == 1){
-          this.$root.isAddingTimeWindowOpen = false
-          this.$root.getTasks()
-          this.$root.getUsersOfHousehold()
-        }
-        if(res.code == 0){
-          this.$root.toast = {
-            message: res.error[0].msg,
-            icon: "error"
-          }
-        }
-      }).catch(error => {
-        console.log(error)
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.$root.access_token}`
+        },
+        body: JSON.stringify({
+          ...item,
+          is_done: 1,
+          time_spent: Number(this.time),
+          modified_at: Math.floor(Date.now() / 1000),
+          household_id: this.$root.user.household_id
+        })
       })
+        .then(res => res.json())
+        .then(res => {
+          if (res.code == 1) {
+            this.$root.isAddingTimeWindowOpen = false
+            this.$root.getTasks()
+            this.$root.getUsersOfHousehold()
+          }
+          if (res.code == 0) {
+            this.$root.toast = {
+              message: res.error[0].msg,
+              icon: 'error'
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
-  computed:{
-  dynamicValues(){
-    return this.$root.isEditTaskWindowOpen ? this.editingTask : this.formData
-  }
+  computed: {
+    dynamicValues() {
+      return this.$root.isEditTaskWindowOpen ? this.editingTask : this.formData
+    }
   },
   data() {
     return {
@@ -119,15 +148,14 @@ export default {
       time: null
     }
   },
-  created() {
-  }
+  created() {}
 }
 </script>
 
 <style lang="scss">
 .taskWindow {
   position: absolute;
-  width:100%;
+  width: 100%;
   height: 100%;
   top: 0;
   background-color: var(--backgroundColor);
@@ -141,7 +169,7 @@ export default {
     margin: 20px;
   }
 
-  .formContainer{
+  .formContainer {
     padding: 20px;
     padding-top: 13vh;
     display: flex;
@@ -150,7 +178,7 @@ export default {
     color: var(--inputTextColor);
     font-size: 12px;
 
-    button{
+    button {
       margin-top: 15px;
       background-color: var(--classicBlue);
       color: var(--backgroundColor);
@@ -161,26 +189,27 @@ export default {
       margin-left: 10px;
     }
 
-    p{
+    p {
       font-size: 14px;
     }
 
-    &.addTime{
+    &.addTime {
       align-items: center;
     }
   }
 }
 
-.taskWindowAnimation-enter-active, .taskWindowAnimation-leave-active {
+.taskWindowAnimation-enter-active,
+.taskWindowAnimation-leave-active {
   opacity: 1;
   transform: translateY(0);
   transition: all 0.3s;
 }
 
-.taskWindowAnimation-enter, .taskWindowAnimation-leave-to {
+.taskWindowAnimation-enter,
+.taskWindowAnimation-leave-to {
   opacity: 0;
   transform: translateY(10vh);
   transition: all 0.3s;
 }
-
 </style>

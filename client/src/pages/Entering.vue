@@ -1,7 +1,7 @@
 <template>
   <div class="entering">
     <EnteringNav :class="$route.path.substr(1)"></EnteringNav>
-    <div :class="{hidden: true, fadeIn: $route.path !== '/'}">
+    <div :class="{ hidden: true, fadeIn: $route.path !== '/' }">
       <router-view />
     </div>
   </div>

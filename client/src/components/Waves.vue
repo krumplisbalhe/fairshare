@@ -1,18 +1,41 @@
 <template>
-    <div class="waveContainer">
-      <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+  <div class="waveContainer">
+    <svg
+      class="waves"
+      viewBox="0 24 150 28"
+      preserveAspectRatio="none"
+      shape-rendering="auto"
+    >
       <defs>
-      <path id="waving" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        <path
+          id="waving"
+          d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+        />
       </defs>
       <g class="crossing">
-      <use xlink:href="#waving" x="48" y="0" fill="var(--classicBlue)" />
-      <use xlink:href="#waving" x="48" y="3" fill="var(--paprika)" />
-      <use xlink:href="#waving" x="48" y="4" fill="rgba(235, 236, 240, 0.3)" />
-      <use xlink:href="#waving" x="48" y="5" fill="rgba(255, 255, 255, 0.3)" />
-      <use xlink:href="#waving" x="48" y="8" fill="rgba(235, 236, 240, 0.3)" />
+        <use xlink:href="#waving" x="48" y="0" fill="var(--classicBlue)" />
+        <use xlink:href="#waving" x="48" y="3" fill="var(--paprika)" />
+        <use
+          xlink:href="#waving"
+          x="48"
+          y="4"
+          fill="rgba(235, 236, 240, 0.3)"
+        />
+        <use
+          xlink:href="#waving"
+          x="48"
+          y="5"
+          fill="rgba(255, 255, 255, 0.3)"
+        />
+        <use
+          xlink:href="#waving"
+          x="48"
+          y="8"
+          fill="rgba(235, 236, 240, 0.3)"
+        />
       </g>
-      </svg>
-    </div>
+    </svg>
+  </div>
 </template>
 
 <script>
@@ -30,16 +53,16 @@ export default {
   transform: translateX(-50%);
 
   .waves {
-    position:relative;
+    position: relative;
     width: 100%;
     height: 50vh;
     top: 10vh;
-    margin-bottom:-7px;
+    margin-bottom: -7px;
   }
 
   .crossing {
     > use {
-      animation: waveAnimation 25s cubic-bezier(.55,.5,.45,.5) infinite;
+      animation: waveAnimation 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
     }
 
     > use:nth-child(1) {
@@ -73,6 +96,7 @@ export default {
   0% {
     transform: translate3d(-90px, 0, 0);
   }
+
   100% {
     transform: translate3d(85px, 0, 0);
   }

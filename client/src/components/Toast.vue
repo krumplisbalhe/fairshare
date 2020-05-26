@@ -1,6 +1,14 @@
 <template>
   <transition name="slideDown" appear>
-    <div v-if="$root.toast" class="toast" :class="{error: $root.toast.icon === 'error', success: $root.toast.icon === 'success', info: $root.toast.icon === 'info'}">
+    <div
+      v-if="$root.toast"
+      class="toast"
+      :class="{
+        error: $root.toast.icon === 'error',
+        success: $root.toast.icon === 'success',
+        info: $root.toast.icon === 'info'
+      }"
+    >
       <Error v-if="$root.toast.icon === 'error'" />
       <Success v-if="$root.toast.icon === 'success'" />
       <Info v-if="$root.toast.icon === 'info'" />
@@ -22,14 +30,11 @@ export default {
     Success,
     Info
   },
-  methods:{
-  },
-  data() {
-    return {
-    }
-  },
   created() {
-    setTimeout(() => this.$root.toast = null, this.$root.toast.icon === 'info' ? 6000 : 2000)
+    setTimeout(
+      () => (this.$root.toast = null),
+      this.$root.toast.icon === 'info' ? 6000 : 2000
+    )
   }
 }
 </script>
@@ -46,19 +51,19 @@ export default {
   align-items: center;
   justify-content: flex-start;
   top: 15px;
-  box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
+  box-shadow: -5px -5px 20px var(--white), 5px 5px 20px var(--shadowColor);
   color: var(--backgroundColor);
   padding: 10px;
 
-  &.error{
+  &.error {
     background-color: var(--paprika);
   }
 
-  &.success{
+  &.success {
     background-color: var(--classicBlue);
   }
 
-  &.info{
+  &.info {
     background-color: var(--classicBlue);
   }
 
@@ -67,7 +72,7 @@ export default {
     margin-left: 20px;
     height: 70%;
     border-left: 1px solid var(--backgroundColor);
-    box-shadow: inset 2px 0px 2px -2px var(--shadowColor), inset 2px 0px 2px -2px var(--shadowColor);
+    box-shadow: inset 2px 0 2px -2px var(--shadowColor), inset 2px 0 2px -2px var(--shadowColor);
   }
 
   p {
@@ -84,17 +89,19 @@ export default {
     flex-shrink: 0;
 
     path {
-        fill: var(--backgroundColor);
+      fill: var(--backgroundColor);
     }
   }
 }
 
-.slideDown-enter-active, .slideDown-leave-active {
-  transform: translateY(0px);
+.slideDown-enter-active,
+.slideDown-leave-active {
+  transform: translateY(0);
   transition: all 0.8s linear;
 }
 
-.slideDown-enter, .slideDown-leave-to {
+.slideDown-enter,
+.slideDown-leave-to {
   transform: translateY(-80px);
   transition: all 0.8s linear;
 }

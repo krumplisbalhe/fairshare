@@ -42,7 +42,7 @@ export default {
     Laundry,
     Cleaning,
     Other
-  },
+  }
 }
 </script>
 
@@ -56,8 +56,8 @@ export default {
     stroke: var(--inputTextColor);
   }
 
-    > * {
-      stroke-width: 0.5px;
-    }
+  > * {
+    stroke-width: 0.5px;
+  }
 }
 </style>

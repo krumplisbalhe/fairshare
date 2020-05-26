@@ -12,22 +12,22 @@
         </button>
       </router-link>
     </div>
-  <div :class="$route.path === '/' ? 'mask' : ''">
-    <Waves />
-    <svg width="100%" height="100%">
-      <clipPath id="path" text-anchor="middle">
-        <text x="50%" y="30%">
-          WE
-        </text>
-        <text x="50%" y="42%">
-          LIKE IT
-        </text>
-        <text x="50%" y="54%">
-          EQUAL
-        </text>
-      </clipPath>
-    </svg>
-  </div>
+    <div :class="$route.path === '/' ? 'mask' : ''">
+      <Waves />
+      <svg width="100%" height="100%">
+        <clipPath id="path" text-anchor="middle">
+          <text x="50%" y="30%">
+            WE
+          </text>
+          <text x="50%" y="42%">
+            LIKE IT
+          </text>
+          <text x="50%" y="54%">
+            EQUAL
+          </text>
+        </clipPath>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -51,7 +51,8 @@ export default {
   flex-direction: column;
   flex-shrink: 0;
 
-  &.signup, &.signin {
+  &.signup,
+  &.signin {
     height: calc(45vh - 10px);
 
     .waves {
@@ -82,7 +83,7 @@ export default {
   font-size: 11vh;
 
   text {
-  font-weight: bold;
+    font-weight: bold;
   }
 }
 </style>

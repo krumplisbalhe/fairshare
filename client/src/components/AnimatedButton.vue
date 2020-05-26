@@ -1,5 +1,10 @@
 <template>
-  <div class="animatedButton" :class="{closingMode: $root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen}">
+  <div
+    class="animatedButton"
+    :class="{
+      closingMode: $root.isNewTaskWindowOpen || $root.isEditTaskWindowOpen
+    }"
+  >
     <button @click="handleTaskWindow" class="addTaskButton">
       <Plus></Plus>
     </button>
@@ -17,12 +22,11 @@ export default {
     Plus
   },
   methods: {
-    handleTaskWindow(){
-      console.log('banana')
-      if(this.$root.isNewTaskWindowOpen || this.$root.isEditTaskWindowOpen) {
+    handleTaskWindow() {
+      if (this.$root.isNewTaskWindowOpen || this.$root.isEditTaskWindowOpen) {
         this.$root.isNewTaskWindowOpen = false
         this.$root.isEditTaskWindowOpen = false
-      }else {
+      } else {
         this.$root.isNewTaskWindowOpen = true
       }
     }
@@ -31,6 +35,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.addTaskButton {
+  z-index: 2;
+  box-shadow: none;
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  &:hover,
+  &:active {
+    box-shadow: none;
+  }
+}
 
 .animatedButton {
   position: relative;
@@ -50,21 +68,8 @@ export default {
   }
 }
 
-.addTaskButton {
-  z-index: 2;
-  box-shadow: none;
-  padding: 5px;
-  border: none;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-
-  &:hover, &:active {
-    box-shadow: none;
-  }
-}
-
-.movingCircle1, .movingCircle2 {
+.movingCircle1,
+.movingCircle2 {
   position: absolute;
   left: calc(50% - 20px);
   top: calc(50% - 20px);
@@ -75,13 +80,13 @@ export default {
 }
 
 .movingCircle1 {
-  box-shadow: .4rem .4rem .8rem var(--shadowColor), -.4rem -.4rem .8rem var(--white);
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--shadowColor), -0.4rem -0.4rem 0.8rem var(--white);
   background: linear-gradient(to bottom right, var(--shadowColor) 0%, var(--white) 100%);
   animation: waves 4s linear infinite;
-  }
+}
 
 .movingCircle2 {
-  box-shadow: .4rem .4rem .8rem var(--shadowColor), -.4rem -.4rem .8rem var(--white);
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--shadowColor), -0.4rem -0.4rem 0.8rem var(--white);
   animation: waves 4s linear 6s infinite;
 }
 
