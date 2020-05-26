@@ -3,6 +3,7 @@ const userRoutes = require('./routes/userRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 const app = express()
 const server = require('http').Server(app)
+const path = require('path')
 
 const knex = require('knex')({
   client: 'sqlite3',
