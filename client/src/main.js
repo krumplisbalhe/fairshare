@@ -21,7 +21,6 @@ new Vue({
   created() {
     this.user = JSON.parse(localStorage.getItem('user_data') || '{}')
     this.access_token = localStorage.getItem('access_token')
-    console.log(this.user, this.access_token)
   },
   methods: {
     getTasks() {

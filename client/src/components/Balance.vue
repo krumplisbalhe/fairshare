@@ -44,7 +44,6 @@ export default {
   },
   mounted() {
     this.$root.getUsersOfHousehold()
-    console.log(this.$root.usersOfHousehold)
   },
   computed: {
     dynamicData() {
