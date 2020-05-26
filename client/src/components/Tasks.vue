@@ -7,6 +7,10 @@
       <hr />
     </div>
     <transition-group class="listContainer" name="taskItemsAnimation" tag="div" mode="out-in">
+      <div v-if="filteredTasks.length === 0" class="emptyState" :key="'emtpy'">
+        <EmptyState />
+        <p>No household chores to show. Start adding tasks with the button below</p>
+      </div>
       <div class="listItem" v-for="item in filteredTasks" :key="item.task_id">
         <div class="listItemTopRow">
           <Close :class="{invisible: item.is_done !== 0}" @click="$root.deleteTask(item.task_id)"></Close>
@@ -42,6 +46,7 @@ import Edit from '@/assets/icons/edit.svg'
 import Done from '@/assets/icons/done.svg'
 import AnimatedButton from '@/components/AnimatedButton'
 import CategoryIcon from '@/components/CategoryIcon'
+import EmptyState from '@/assets/icons/emptyState.svg'
 
 export default {
   name: 'Tasks',
@@ -52,6 +57,7 @@ export default {
     Done,
     AnimatedButton,
     CategoryIcon,
+    EmptyState
   },
   data(){
     return {
@@ -229,6 +235,31 @@ export default {
 
   svg {
     vertical-align: middle;
+  }
+}
+
+.emptyState{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+
+  svg{
+    width: 120px;
+    height: 120px;
+    path{
+      fill: #D6D6D6;
+    }
+  }
+
+  p{
+    color: #D6D6D6;
+    font-size: 15px;
+    text-align: center;
+    width: 70%;
+    padding-top: 20px;
+    line-height: 1.5;
   }
 }
 

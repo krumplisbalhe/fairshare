@@ -90,6 +90,7 @@ export default {
         if(res.code == 1){
           this.$root.isAddingTimeWindowOpen = false
           this.$root.getTasks()
+          this.$root.getUsersOfHousehold()
         }
         if(res.code == 0){
           this.$root.toast = {

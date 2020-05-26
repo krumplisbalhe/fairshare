@@ -71,5 +71,9 @@ export default {
     transition: var(--transition);
     box-shadow: 0 0 10px var(--paprika);
   }
+
+  &.disabled{
+    pointer-events: none;
+  }
 }
 </style>

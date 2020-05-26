@@ -29,7 +29,7 @@ export default {
     }
   },
   created() {
-    setTimeout(() => this.$root.toast = null, this.$root.toast.icon === 'info' ? 20000 : 2500)
+    setTimeout(() => this.$root.toast = null, this.$root.toast.icon === 'info' ? 6000 : 2000)
   }
 }
 </script>
@@ -37,21 +37,25 @@ export default {
 <style lang="scss" scoped>
 .toast {
   z-index: 4;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: calc(var(--appMaxWidth) - 20px);
   position: absolute;
-  width: var(--appMaxWidth);
   height: 55px;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   top: 15px;
   box-shadow: -5px -5px 20px var(--white),  5px 5px 20px var(--shadowColor);
   color: var(--backgroundColor);
+  padding: 10px;
 
   &.error{
     background-color: var(--paprika);
   }
 
   &.success{
-    background-color: var(--green);
+    background-color: var(--classicBlue);
   }
 
   &.info{
@@ -68,11 +72,20 @@ export default {
 
   p {
     font-size: 14px;
+    line-height: 1.4;
+    padding-right: 10px;
   }
 
   svg {
-    padding-left: 20px;
+    padding-left: 10px;
     height: 30px;
+    width: 30px;
+    fill: var(--backgroundColor);
+    flex-shrink: 0;
+
+    path {
+        fill: var(--backgroundColor);
+    }
   }
 }
 

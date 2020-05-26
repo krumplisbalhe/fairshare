@@ -1,6 +1,11 @@
 <template>
   <div class="dashboard">
-    <button class="signOut" @click="signOut()">
+    <div v-if="$root.usersOfHousehold.length === 1" class="missingHousehold">
+      <AddUser />
+      <p>Please sign up your household partner before starting using the app</p>
+      <p class="smallerText">Use the household ID: {{$root.usersOfHousehold[0].household_id}}</p>
+    </div>
+    <button class="signOut" :class="{layerUp: isHouseholdMissing}" @click="signOut()">
       Sign out
     </button>
     <div class="brandWavesArea">
@@ -10,7 +15,7 @@
       <Tasks v-if="activeNav === 'tasks'"></Tasks>
       <Balance v-if="activeNav === 'balance'"></Balance>
     </div>
-    <BottomNav @setNav="val => activeNav = val" />
+    <BottomNav :class="{disabled: $root.usersOfHousehold.length === 1}" @setNav="val => activeNav = val" />
   </div>
 </template>
 
@@ -19,6 +24,7 @@ import BottomNav from '@/components/BottomNav'
 import Tasks from '@/components/Tasks'
 import Balance from '@/components/Balance'
 import Waves from '@/components/Waves'
+import AddUser from '@/assets/icons/addUser.svg'
 
 export default {
   name: 'Dashboard',
@@ -26,7 +32,8 @@ export default {
     BottomNav,
     Tasks,
     Balance,
-    Waves
+    Waves,
+    AddUser
   },
   created(){
     this.$root.getTasks(),
@@ -82,11 +89,52 @@ export default {
     margin: 10px;
     font-weight: 500;
     align-self: flex-end;
+
+    &.layerUp{
+      z-index: 5;
+    }
   }
 
   .bottomNav {
     margin: 10px;
     height: 50px;
+  }
+}
+
+.missingHousehold{
+  position: absolute;
+  background-color: black;
+  opacity: 0.8;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width: 100%;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  svg{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 22px;
+    path{
+      fill: var(--paprika);
+      stroke: black;
+      stroke-width: 5px;
+    }
+  }
+
+  p{
+    color: var(--backgroundColor);
+    width: 70%;
+    text-align: center;
+    font-size: 19px;
+    line-height: 1.2;
+  }
+  .smallerText{
+    color: var(--paprika);
   }
 }
 </style>

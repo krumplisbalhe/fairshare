@@ -30,7 +30,7 @@ export default {
       active_tab: 'points'
     }
   },
-  created(){
+  mounted(){
     this.$root.getUsersOfHousehold()
     console.log(this.$root.usersOfHousehold)
   },

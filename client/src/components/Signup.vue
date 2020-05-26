@@ -50,6 +50,7 @@ export default {
               message: `Household ID has been copied to clipboard, send it to your partner to join the household`,
               icon: "info"
               }
+              this.$root.usersOfHousehold = res.response
             }
             else {
               this.$root.toast = {
