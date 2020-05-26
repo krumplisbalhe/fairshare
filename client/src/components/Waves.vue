@@ -1,5 +1,5 @@
 <template>
-  <div class="waveContainer">
+  <div class="waveContainer" :class="$route.path === '/' ? 'highWaves' : ''">
     <svg
       class="waves"
       viewBox="0 24 150 28"
@@ -49,15 +49,13 @@ export default {
   transition: all 0.8s linear;
   position: absolute;
   width: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  pointer-events: none;
 
   .waves {
     position: relative;
     width: 100%;
-    height: 50vh;
-    top: 10vh;
-    margin-bottom: -7px;
+    top: 100px;
   }
 
   .crossing {
@@ -100,5 +98,10 @@ export default {
   100% {
     transform: translate3d(85px, 0, 0);
   }
+}
+
+.highWaves {
+  bottom: 75px;
+  transition: all 0.8s linear;
 }
 </style>

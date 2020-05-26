@@ -12,22 +12,14 @@
         </button>
       </router-link>
     </div>
-    <div :class="$route.path === '/' ? 'mask' : ''">
-      <Waves />
-      <svg width="100%" height="100%">
-        <clipPath id="path" text-anchor="middle">
-          <text x="50%" y="30%">
-            WE
-          </text>
-          <text x="50%" y="42%">
-            LIKE IT
-          </text>
-          <text x="50%" y="54%">
-            EQUAL
-          </text>
-        </clipPath>
-      </svg>
+    <div v-if="$route.path === '/'" class="text">
+      WE
+      <br />
+      LIKE IT
+      <br />
+      EQUAL
     </div>
+    <Waves />
   </div>
 </template>
 
@@ -44,19 +36,19 @@ export default {
 
 <style lang="scss">
 .enteringNav {
-  height: 100%;
+  height: calc(100% - 20px);
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  position: relative;
 
   &.signup,
   &.signin {
-    height: calc(45vh - 10px);
+    height: 200px;
 
     .waves {
-      height: 13vh;
       transition: all 0.8s linear;
     }
 
@@ -77,13 +69,11 @@ export default {
   }
 }
 
-.mask {
-  clip-path: url(#path);
-  height: 90vh;
+.text{
+  font-weight: bold;
   font-size: 11vh;
-
-  text {
-    font-weight: bold;
-  }
+  align-self: center;
+  text-align: center;
+  padding-top: 100px;
 }
 </style>

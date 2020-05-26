@@ -86,6 +86,7 @@ export default {
 .fadeIn {
   .signup {
     padding: 20px;
+    padding-bottom: 40px;
   }
 }
 
