@@ -1,17 +1,14 @@
 const express = require('express')
-// const Cors = require('cors')
 const userRoutes = require('./routes/userRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 const app = express()
 const server = require('http').Server(app)
 
-// app.use(Cors())
-
 const knex = require('knex')({
   client: 'sqlite3',
   useNullAsDefault: true,
   connection: {
-    filename: "./db.sqlite"
+    filename: './db.sqlite'
   }
 })
 
@@ -51,10 +48,10 @@ app.use(express.static('public'))
 app.use(userRoutes)
 app.use(taskRoutes)
 
-// app.get('*', (req, res)=>{
-//   res.sendFile(path.join(__dirname, 'public', 'index.html'))
-// })
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
 
 server.listen(3000, () => {
-  console.log('listening on *:3000');
+  console.log('listening on *:3000')
 })

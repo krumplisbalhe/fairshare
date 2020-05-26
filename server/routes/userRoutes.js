@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const expressjwt = require("express-jwt")
+const expressjwt = require('express-jwt')
 const bcrypt = require('bcrypt')
 const shortid = require('shortid')
-const jwt = require("jsonwebtoken")
+const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 
 const saltRounds = 10
@@ -11,12 +11,12 @@ const knex = require('knex')({
   client: 'sqlite3',
   useNullAsDefault: true,
   connection: {
-    filename: "./db.sqlite"
+    filename: './db.sqlite'
   }
 })
 
 const jwtCheck = expressjwt({
-  secret: "mykey"
+  secret: 'mykey'
 })
 
 router.post('/api/signup-create',
@@ -165,7 +165,7 @@ router.post('/api/signin',
           const token = jwt.sign({
             sub: user.user_id,
             username: user.user_name,
-          }, "mykey", {expiresIn: "3 hours"})
+          }, 'mykey', {expiresIn: '3 hours'})
           res.json({
             code: 1,
             response: `${user.user_name} is authorized.`,

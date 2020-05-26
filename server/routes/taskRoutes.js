@@ -1,17 +1,17 @@
 const router = require('express').Router()
-const expressjwt = require("express-jwt")
+const expressjwt = require('express-jwt')
 const {check, validationResult} = require('express-validator')
 
 const knex = require('knex')({
   client: 'sqlite3',
   useNullAsDefault: true,
   connection: {
-    filename: "./db.sqlite"
+    filename: './db.sqlite'
   }
 })
 
 const jwtCheck = expressjwt({
-  secret: "mykey"
+  secret: 'mykey'
 })
 
 const tasks = router.route('/api/tasks')
@@ -259,18 +259,16 @@ router.put('/api/task-done',
         .catch(transaction.rollback)
     })
     .then( () => {
-      // transaction suceeded, data written
       return res.json({
         code: 1,
       })
     })
     .catch( (error) => {
-      // transaction failed, data rolled back
       return res.json({
         code: 0,
         msg: error
       })
-    });
+    })
 })
 
 module.exports = router
