@@ -47,7 +47,6 @@
       <div class="listItem" v-for="item in filteredTasks" :key="item.task_id">
         <div class="listItemTopRow">
           <Close
-            :class="{ invisible: item.is_done !== 0 }"
             @click="$root.deleteTask(item.task_id)"
           ></Close>
           <div
@@ -69,10 +68,16 @@
             {{ item.task_name }}
             <div class="points">{{ item.point }}p</div>
           </div>
-          <Done
+          <div v-if="item.assigned_to !== 0" class="frequency">{{ item.frequency }}</div>
+          <Undone
             @click="openTimeWindow(item)"
-            v-if="item.assigned_to !== 0"
-            :class="{ done: item.is_done !== 0, undone: item.is_done === 0 }"
+            v-if="item.assigned_to !==0 && item.is_done === 0"
+            class="undone"
+          >
+          </Undone>
+          <Done
+            v-if="item.assigned_to !== 0 && item.is_done !== 0"
+            class="done"
           ></Done>
         </div>
         <div class="listItemBottomRow">
@@ -115,6 +120,7 @@ import Done from '@/assets/icons/done.svg'
 import AnimatedButton from '@/components/AnimatedButton'
 import CategoryIcon from '@/components/CategoryIcon'
 import EmptyState from '@/assets/icons/emptyState.svg'
+import Undone from '@/assets/icons/circle.svg'
 
 export default {
   name: 'Tasks',
@@ -125,7 +131,8 @@ export default {
     Done,
     AnimatedButton,
     CategoryIcon,
-    EmptyState
+    EmptyState,
+    Undone
   },
   data() {
     return {
@@ -265,6 +272,10 @@ export default {
       margin-bottom: 10px;
     }
 
+    .frequency {
+      font-size: 12px;
+    }
+
     .iconAndTitle {
       margin-left: 10px;
       display: flex;
@@ -293,7 +304,7 @@ export default {
 
     .done {
       pointer-events: none;
-      stroke: var(--green);
+      stroke: var(--paprika);
     }
 
     .undone {
