@@ -165,7 +165,7 @@ router.post('/api/signin',
           const token = jwt.sign({
             sub: user.user_id,
             username: user.user_name,
-          }, 'mykey', {expiresIn: '3 hours'})
+          }, 'mykey', {expiresIn: '7d'})
           res.json({
             code: 1,
             response: `${user.user_name} is authorized.`,
